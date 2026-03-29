@@ -1,49 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --bg:           #F7F4EF;
-  --surface:      #FFFFFF;
-  --surface-2:    #F0EDE7;
-  --surface-3:    #E8E4DD;
-  --border:       #E2DDD6;
-  --border-hover: #C8C2B8;
+  --bg:           #FFFFFF;
+  --surface:      #F8F7F4;
+  --surface-2:    #F0EDE6;
+  --surface-3:    #E8E3DA;
+  --border:       #DDD8CF;
+  --border-strong:#B8B2A6;
 
-  --text-1: #17140D;
-  --text-2: #6A6358;
-  --text-3: #A09888;
+  --text-1:  #0B0906;
+  --text-2:  #524D46;
+  --text-3:  #9C9488;
 
-  --ink:      #17140D;
-  --ink-fg:   #F7F4EF;
+  --navy:    #0C1C2E;
+  --navy-fg: #FFFFFF;
 
-  --gold:        #B8926A;
-  --gold-light:  #F6EDD8;
-  --gold-border: #E6D3B0;
+  --red:     #C5432A;
 
-  --green:       #16A34A;
-  --green-light: #F0FDF4;
+  --gold:    #9E7840;
+  --gold-bg: #FBF3E6;
 
-  /* legacy aliases */
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-border: var(--border);
-  --color-border-hover: var(--border-hover);
-  --color-text-primary: var(--text-1);
+  --green:   #1C7A41;
+  --green-bg:#EDFAF3;
+
+  /* legacy aliases for components */
+  --color-bg:             var(--bg);
+  --color-surface:        var(--surface);
+  --color-surface-2:      var(--surface-2);
+  --color-border:         var(--border);
+  --color-border-hover:   var(--border-strong);
+  --color-text-primary:   var(--text-1);
   --color-text-secondary: var(--text-2);
-  --color-text-tertiary: var(--text-3);
-  --color-accent: var(--ink);
-  --color-accent-dim: var(--surface-2);
-  --color-verified: var(--green);
-  --color-premium-border: var(--gold-border);
+  --color-text-tertiary:  var(--text-3);
+  --color-accent:         var(--navy);
+  --color-verified:       var(--green);
+  --color-premium-border: var(--gold);
+  --ink:    var(--navy);
+  --ink-fg: var(--navy-fg);
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans:    var(--font-geist-sans);
+  --font-mono:    var(--font-geist-mono);
+  --font-display: var(--font-syne);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; }
-html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   background: var(--bg);
@@ -51,15 +58,28 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
+  line-height: 1.55;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--ink-fg);
+  background: var(--navy);
+  color: var(--navy-fg);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--surface-2); }
-::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+/* Range input */
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 2px;
+  background: var(--border);
+  border-radius: 9999px;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--navy);
+  border-radius: 50%;
+  cursor: pointer;
+}

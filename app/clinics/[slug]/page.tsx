@@ -4,58 +4,45 @@ import type { Metadata } from 'next'
 import { createServerClient } from '@/lib/supabase-server'
 import { Clinic, Category } from '@/lib/types'
 import { getCategoryLabel, getCategoryDescription, formatPriceRange, countryFlag } from '@/lib/utils'
-import CategoryPill from '@/components/CategoryPill'
-import RatingStars from '@/components/RatingStars'
 import VerifiedBadge from '@/components/VerifiedBadge'
 import ClinicCard from '@/components/ClinicCard'
 
 export const revalidate = 86400
 
-interface PageProps {
-  params: Promise<{ slug: string }>
-}
+interface PageProps { params: Promise<{ slug: string }> }
 
 async function getClinic(slug: string) {
   try {
-    const supabase = createServerClient()
-    const { data } = await supabase.from('clinics').select('*').eq('slug', slug).single()
+    const { data } = await createServerClient().from('clinics').select('*').eq('slug', slug).single()
     return data as Clinic | null
-  } catch {
-    return null
-  }
+  } catch { return null }
 }
 
-async function getSimilarClinics(clinic: Clinic) {
+async function getSimilar(clinic: Clinic) {
   try {
-    const supabase = createServerClient()
-    const { data } = await supabase
+    const { data } = await createServerClient()
       .from('clinics').select('*').neq('slug', clinic.slug)
       .or(`country.eq.${clinic.country},categories.cs.{${clinic.categories[0]}}`).limit(4)
     return (data ?? []) as Clinic[]
-  } catch {
-    return []
-  }
+  } catch { return [] }
 }
 
 export async function generateStaticParams() {
   try {
-    const supabase = createServerClient()
-    const { data } = await supabase.from('clinics').select('slug')
+    const { data } = await createServerClient().from('clinics').select('slug')
     return (data ?? []).map((c: { slug: string }) => ({ slug: c.slug }))
-  } catch {
-    return []
-  }
+  } catch { return [] }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const clinic = await getClinic(slug)
-  if (!clinic) return {}
-  const description = `${clinic.name} in ${clinic.city} — ${clinic.categories.map(getCategoryLabel).join(', ')}. ${clinic.price_min ? `Prices from €${clinic.price_min.toLocaleString()}. ` : ''}${clinic.rating ? `Rated ${clinic.rating}/5. ` : ''}Compare and contact directly.`
+  const c = await getClinic(slug)
+  if (!c) return {}
+  const desc = `${c.name} in ${c.city} — ${c.categories.map(getCategoryLabel).join(', ')}. ${c.price_min ? `From €${c.price_min.toLocaleString()}. ` : ''}${c.rating ? `Rated ${c.rating}/5.` : ''}`
   return {
-    title: `${clinic.name} — Men's Health Clinic in ${clinic.city}`,
-    description,
-    openGraph: { title: `${clinic.name} — ${clinic.city}`, description, type: 'website' },
+    title: `${c.name} — Men's Health in ${c.city}`,
+    description: desc,
+    openGraph: { title: `${c.name} — ${c.city}`, description: desc },
   }
 }
 
@@ -64,16 +51,14 @@ export default async function ClinicPage({ params }: PageProps) {
   const clinic = await getClinic(slug)
   if (!clinic) notFound()
 
-  const similarClinics = await getSimilarClinics(clinic)
+  const similar = await getSimilar(clinic)
 
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'MedicalClinic',
+    '@context': 'https://schema.org', '@type': 'MedicalClinic',
     name: clinic.name,
     address: { '@type': 'PostalAddress', streetAddress: clinic.address ?? undefined, addressLocality: clinic.city, addressCountry: clinic.country },
     priceRange: clinic.price_min ? formatPriceRange(clinic.price_min, clinic.price_max, clinic.currency) : undefined,
-    telephone: clinic.phone ?? undefined,
-    url: clinic.website_url ?? undefined,
+    telephone: clinic.phone ?? undefined, url: clinic.website_url ?? undefined,
     aggregateRating: clinic.rating ? { '@type': 'AggregateRating', ratingValue: clinic.rating, reviewCount: clinic.review_count } : undefined,
   }
 
@@ -81,186 +66,199 @@ export default async function ClinicPage({ params }: PageProps) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-10">
 
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-[12px] text-[var(--text-3)] mb-8">
-          <Link href="/clinics" className="hover:text-[var(--text-2)] transition-colors">Clinics</Link>
+        <div className="flex items-center gap-2 py-5 text-[11px] font-mono text-[var(--text-3)] border-b border-[var(--border)]">
+          <Link href="/clinics" className="hover:text-[var(--text-1)] transition-colors">Clinics</Link>
           <span>/</span>
           <span className="text-[var(--text-2)]">{clinic.name}</span>
-        </nav>
+        </div>
 
-        {/* Header */}
-        <header className="pb-8 mb-8 border-b border-[var(--border)]">
-          <div className="flex flex-wrap items-center gap-2 mb-4">
-            {clinic.verified && <VerifiedBadge />}
-            {clinic.premium && (
-              <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full border border-[var(--gold-border)] text-[var(--gold)] bg-[var(--gold-light)]">
-                Premium
-              </span>
+        {/* Hero header */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-0 border-b border-[var(--border)]">
+
+          {/* Left: name + details */}
+          <div className="py-12 lg:pr-12 lg:border-r border-[var(--border)]">
+            <div className="flex flex-wrap items-center gap-2 mb-5">
+              {clinic.verified && <VerifiedBadge />}
+              {clinic.premium && (
+                <span className="text-[9px] font-bold uppercase tracking-[0.15em] px-2 py-1 border border-[var(--gold)] text-[var(--gold)] bg-[var(--gold-bg)] rounded">
+                  Premium
+                </span>
+              )}
+            </div>
+
+            <h1 className="font-[family-name:var(--font-syne)] font-extrabold text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-[-0.03em] text-[var(--text-1)] mb-4">
+              {clinic.name}
+            </h1>
+
+            <p className="text-[16px] text-[var(--text-2)] mb-6">
+              {countryFlag(clinic.country)} {clinic.city}, {clinic.country}
+            </p>
+
+            <div className="flex flex-wrap gap-1.5">
+              {clinic.categories.map((cat) => (
+                <span key={cat} className="text-[10px] font-semibold uppercase tracking-[0.12em] px-3 py-1.5 border border-[var(--border)] rounded-md text-[var(--text-2)] bg-[var(--surface)]">
+                  {getCategoryLabel(cat as Category)}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: key stats + CTA */}
+          <div className="py-12 lg:pl-12 flex flex-col gap-6">
+
+            {/* Price — big display */}
+            {clinic.price_min && (
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-3)] mb-1">Price range</p>
+                <p className="font-[family-name:var(--font-syne)] font-extrabold text-[2.8rem] leading-none tracking-tight text-[var(--text-1)]">
+                  €{clinic.price_min.toLocaleString()}
+                  {clinic.price_max && (
+                    <span className="text-[1.6rem] text-[var(--text-3)]"> – €{clinic.price_max.toLocaleString()}</span>
+                  )}
+                </p>
+              </div>
             )}
-          </div>
 
-          <h1 className="text-[32px] md:text-[42px] font-semibold text-[var(--text-1)] tracking-tight leading-tight mb-3">
-            {clinic.name}
-          </h1>
-          <p className="text-[17px] text-[var(--text-2)] mb-5">
-            {countryFlag(clinic.country)} {clinic.city}, {clinic.country}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {clinic.categories.map((cat) => (
-              <CategoryPill key={cat} category={cat as Category} />
-            ))}
-          </div>
-        </header>
+            {/* Rating */}
+            {clinic.rating && (
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-3)] mb-1">Rating</p>
+                <div className="flex items-baseline gap-2">
+                  <p className="font-[family-name:var(--font-syne)] font-extrabold text-[2rem] leading-none text-[var(--text-1)]">{clinic.rating.toFixed(1)}</p>
+                  <div className="flex gap-0.5 mb-0.5">
+                    {[1,2,3,4,5].map((s) => (
+                      <svg key={s} width="13" height="13" viewBox="0 0 13 13" fill={s <= Math.round(clinic.rating!) ? 'var(--gold)' : 'var(--border)'}>
+                        <path d="M6.5 1.2l1.3 2.6 2.9.42-2.1 2.04.5 2.87L6.5 7.8l-2.6 1.37.5-2.87L2.3 4.22l2.9-.42z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="text-[12px] text-[var(--text-3)]">({clinic.review_count})</span>
+                </div>
+              </div>
+            )}
 
-        {/* Key stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+            <div className="flex flex-col gap-2 pt-2">
+              {clinic.website_url && (
+                <a href={clinic.website_url} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg bg-[var(--navy)] text-white text-[13px] font-bold hover:opacity-85 transition-opacity">
+                  Visit website
+                  <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 10L10 2M10 2H5M10 2v5"/>
+                  </svg>
+                </a>
+              )}
+              {clinic.contact_url && (
+                <a href={clinic.contact_url} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-center w-full py-3 rounded-lg border border-[var(--border)] text-[var(--text-1)] text-[13px] font-semibold hover:border-[var(--border-strong)] transition-colors">
+                  Send enquiry
+                </a>
+              )}
+              {clinic.phone && (
+                <a href={`tel:${clinic.phone}`} className="text-[12px] text-[var(--text-3)] hover:text-[var(--text-1)] text-center pt-1 transition-colors">
+                  {clinic.phone}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 border-b border-[var(--border)]">
           {[
-            {
-              label: 'Price range',
-              value: formatPriceRange(clinic.price_min, clinic.price_max, clinic.currency),
-              mono: true,
-            },
-            {
-              label: 'Rating',
-              value: clinic.rating ? `${clinic.rating}/5` : 'No reviews',
-              sub: clinic.review_count ? `${clinic.review_count} reviews` : undefined,
-              mono: true,
-            },
-            {
-              label: 'Languages',
-              value: clinic.languages?.slice(0, 2).join(', ') ?? 'On request',
-              sub: (clinic.languages?.length ?? 0) > 2 ? `+${(clinic.languages?.length ?? 0) - 2} more` : undefined,
-            },
-            {
-              label: 'Founded',
-              value: clinic.founded_year ? String(clinic.founded_year) : '—',
-              mono: true,
-            },
+            { label: 'Languages', value: clinic.languages?.join(', ') ?? '—' },
+            { label: 'Founded', value: clinic.founded_year ? String(clinic.founded_year) : '—' },
+            { label: 'Region', value: clinic.region === 'EU' ? 'Europe' : 'Worldwide' },
+            { label: 'Currency', value: clinic.currency },
           ].map((s) => (
-            <div key={s.label} className="p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)] flex flex-col gap-1">
-              <p className="text-[10px] uppercase tracking-[0.14em] font-medium text-[var(--text-3)]">{s.label}</p>
-              <p className={`text-[15px] font-semibold text-[var(--text-1)] ${s.mono ? 'font-mono' : ''}`}>{s.value}</p>
-              {s.sub && <p className="text-[11px] text-[var(--text-3)]">{s.sub}</p>}
+            <div key={s.label} className="py-6 pr-6 border-r border-[var(--border)] last:border-r-0 odd:last:border-r-0">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[var(--text-3)] mb-1">{s.label}</p>
+              <p className="text-[14px] font-semibold text-[var(--text-1)]">{s.value}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
-          <div className="flex flex-col gap-12">
+        {/* Body content */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-0 py-12">
+          <div className="flex flex-col gap-12 lg:pr-12 lg:border-r border-[var(--border)]">
 
-            {/* Description */}
             {clinic.description && (
               <section>
-                <h2 className="text-[20px] font-semibold text-[var(--text-1)] mb-4">About this clinic</h2>
+                <h2 className="font-[family-name:var(--font-syne)] font-bold text-[20px] tracking-tight text-[var(--text-1)] mb-4">
+                  About this clinic
+                </h2>
                 <p className="text-[15px] text-[var(--text-2)] leading-relaxed">{clinic.description}</p>
               </section>
             )}
 
-            {/* Services */}
             <section>
-              <h2 className="text-[20px] font-semibold text-[var(--text-1)] mb-4">Services offered</h2>
-              <div className="flex flex-col gap-3">
+              <h2 className="font-[family-name:var(--font-syne)] font-bold text-[20px] tracking-tight text-[var(--text-1)] mb-5">
+                Services offered
+              </h2>
+              <div className="flex flex-col divide-y divide-[var(--border)]">
                 {clinic.categories.map((cat) => (
-                  <div key={cat} className="flex gap-4 p-5 bg-[var(--surface)] rounded-xl border border-[var(--border)]">
-                    <div className="w-8 h-8 rounded-lg bg-[var(--surface-2)] border border-[var(--border)] flex items-center justify-center shrink-0">
-                      <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="1.5" className="text-[var(--text-2)]">
-                        <path d="M2 7l4 4 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                  <div key={cat} className="flex gap-4 py-5 first:pt-0">
+                    <div className="w-7 h-7 rounded-md border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center shrink-0 mt-0.5">
+                      <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--navy)]">
+                        <path d="M2 6l3 3 5-5"/>
                       </svg>
                     </div>
                     <div>
                       <p className="font-semibold text-[14px] text-[var(--text-1)]">{getCategoryLabel(cat as Category)}</p>
-                      <p className="text-[13px] text-[var(--text-2)] mt-0.5">{getCategoryDescription(cat as Category)}</p>
+                      <p className="text-[13px] text-[var(--text-2)] mt-0.5 leading-relaxed">{getCategoryDescription(cat as Category)}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* Location */}
             {clinic.address && (
               <section>
-                <h2 className="text-[20px] font-semibold text-[var(--text-1)] mb-4">Location</h2>
-                <p className="text-[15px] text-[var(--text-2)] mb-3">{clinic.address}</p>
-                <a
-                  href={`https://maps.google.com/?q=${encodeURIComponent(clinic.address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
-                >
+                <h2 className="font-[family-name:var(--font-syne)] font-bold text-[20px] tracking-tight text-[var(--text-1)] mb-4">
+                  Location
+                </h2>
+                <p className="text-[14px] text-[var(--text-2)] mb-3">{clinic.address}</p>
+                <a href={`https://maps.google.com/?q=${encodeURIComponent(clinic.address)}`} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[var(--navy)] hover:opacity-70 transition-opacity">
                   Open in Google Maps
-                  <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.5"><path d="M2.5 9.5l7-7M9.5 3H3.5M9.5 3v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  <svg width="11" height="11" fill="none" viewBox="0 0 11 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 9L9 2M9 2H5M9 2v4"/>
+                  </svg>
                 </a>
               </section>
             )}
           </div>
 
-          {/* Contact card */}
-          <div>
-            <div className="sticky top-20 p-6 bg-[var(--surface)] rounded-2xl border border-[var(--border)] shadow-[0_4px_30px_rgba(23,20,13,0.06)] flex flex-col gap-4">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.14em] font-medium text-[var(--text-3)] mb-2">Contact clinic</p>
-                <RatingStars rating={clinic.rating} reviewCount={clinic.review_count} />
-              </div>
-
-              <div className="pt-2 border-t border-[var(--border)] flex flex-col gap-2.5">
-                {clinic.website_url && (
-                  <a
-                    href={clinic.website_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[var(--ink)] text-[var(--ink-fg)] text-[14px] font-semibold hover:opacity-85 transition-opacity"
-                  >
-                    Visit website
-                    <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="1.5"><path d="M2 11L11 2M11 2H5M11 2v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  </a>
-                )}
-                {clinic.contact_url && (
-                  <a
-                    href={clinic.contact_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-full py-3 rounded-lg border border-[var(--border)] text-[var(--text-1)] text-[14px] font-medium hover:border-[var(--border-hover)] transition-colors"
-                  >
-                    Send enquiry
-                  </a>
-                )}
-                {clinic.phone && (
-                  <a
-                    href={`tel:${clinic.phone}`}
-                    className="text-[13px] text-[var(--text-3)] hover:text-[var(--text-2)] transition-colors text-center pt-1"
-                  >
-                    {clinic.phone}
-                  </a>
-                )}
-              </div>
-
-              <div className="pt-3 border-t border-[var(--border)]">
-                <p className="text-[11px] text-[var(--text-3)] leading-relaxed">
-                  For informational purposes only. Verify credentials directly with the clinic before booking.
-                </p>
+          {/* Sidebar — sticky disclaimer */}
+          <div className="lg:pl-12 pt-12 lg:pt-0">
+            <div className="sticky top-20 flex flex-col gap-4 p-5 bg-[var(--surface)] border border-[var(--border)] rounded-xl">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--text-3)]">Important note</p>
+              <p className="text-[12px] text-[var(--text-2)] leading-relaxed">
+                This directory is for informational purposes only. We do not provide medical advice. Verify credentials directly with the clinic and consult a qualified professional before any procedure.
+              </p>
+              <div className="border-t border-[var(--border)] pt-4">
+                <Link href="/clinics" className="text-[12px] font-semibold text-[var(--navy)] hover:opacity-70 transition-opacity flex items-center gap-1.5">
+                  ← Back to all clinics
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
         {/* Similar clinics */}
-        {similarClinics.length > 0 && (
-          <section className="mt-16 pt-12 border-t border-[var(--border)]">
+        {similar.length > 0 && (
+          <section className="border-t border-[var(--border)] py-12">
             <div className="flex items-end justify-between mb-8">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.14em] font-medium text-[var(--text-3)] mb-1">You might also like</p>
-                <h2 className="text-[22px] font-semibold text-[var(--text-1)]">Similar clinics</h2>
+              <div className="flex items-baseline gap-4">
+                <span className="font-mono text-[10px] text-[var(--text-3)] uppercase tracking-widest">Related</span>
+                <h2 className="font-[family-name:var(--font-syne)] font-bold text-[22px] tracking-tight text-[var(--text-1)]">Similar clinics</h2>
               </div>
-              <Link href="/clinics" className="text-[13px] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors">
-                View all →
-              </Link>
+              <Link href="/clinics" className="text-[12px] text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors">View all →</Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {similarClinics.map((c) => (
-                <ClinicCard key={c.id} clinic={c} />
-              ))}
+              {similar.map((c) => <ClinicCard key={c.id} clinic={c} />)}
             </div>
           </section>
         )}
