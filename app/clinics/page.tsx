@@ -65,101 +65,107 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
   const sort = params.sort ?? 'rating'
 
   return (
-    <div className="max-w-[1400px] mx-auto px-6 sm:px-10">
+    <div style={{ minHeight: 'calc(100vh - 56px)' }}>
+      <div className="pg-w">
 
-      {/* Page header */}
-      <div className="py-10 border-b border-[var(--border)]">
-        <div className="flex items-baseline gap-5">
-          <span className="font-[family-name:var(--font-geist-mono)] text-[11px] text-[var(--text-3)] uppercase tracking-widest">Directory</span>
-          <h1 className="font-[family-name:var(--font-syne)] font-extrabold text-[28px] md:text-[36px] tracking-[-0.03em] text-[var(--text-1)]">
+        {/* Header */}
+        <div style={{ padding: '2.5rem 0', borderBottom: '1px solid var(--border)' }}>
+          <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.5rem' }}>Directory</p>
+          <h1 style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 'clamp(1.5rem,3vw,2rem)', color: 'var(--text-1)', letterSpacing: '-0.03em' }}>
             Men&apos;s health clinics
           </h1>
         </div>
-      </div>
 
-      <div className="flex flex-col lg:flex-row gap-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr]" style={{ gap: '0' }}>
 
-        {/* Sidebar */}
-        <aside className="w-full lg:w-[220px] xl:w-[240px] shrink-0 border-b lg:border-b-0 lg:border-r border-[var(--border)] py-8 lg:pr-8">
-          <div className="lg:sticky lg:top-20">
-            <Suspense>
-              <ClinicFilters countries={countries} />
-            </Suspense>
-          </div>
-        </aside>
+          {/* Sidebar */}
+          <aside style={{ borderRight: '1px solid var(--border)', paddingRight: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
+            <div style={{ position: 'sticky', top: 80 }}>
+              <Suspense>
+                <ClinicFilters countries={countries} />
+              </Suspense>
+            </div>
+          </aside>
 
-        {/* Results */}
-        <div className="flex-1 min-w-0 py-8 lg:pl-8">
+          {/* Results */}
+          <div style={{ paddingLeft: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
 
-          {/* Toolbar */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-7 pb-6 border-b border-[var(--border)]">
-            <p className="text-[13px] text-[var(--text-2)]">
-              {total === 0
-                ? 'No clinics found'
-                : <><span className="font-[family-name:var(--font-syne)] font-bold text-[16px] text-[var(--text-1)]">{total}</span> {total === 1 ? 'clinic' : 'clinics'} found</>
-              }
-            </p>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[10px] font-mono text-[var(--text-3)] uppercase tracking-wider mr-1">Sort</span>
-              {[
-                { v: 'rating', l: 'Top rated' },
-                { v: 'price_asc', l: 'Price ↑' },
-                { v: 'price_desc', l: 'Price ↓' },
-                { v: 'newest', l: 'Newest' },
-              ].map((o) => {
-                const url = '/clinics?' + Object.entries({ ...params, sort: o.v, page: '1' })
-                  .filter(([, v]) => v).map(([k, v]) => `${k}=${encodeURIComponent(v!)}`).join('&')
-                return (
-                  <a key={o.v} href={url}
-                    className={`text-[11px] px-3 py-1.5 rounded-md border font-medium transition-colors ${
-                      sort === o.v
-                        ? 'bg-[var(--navy)] text-white border-[var(--navy)]'
-                        : 'bg-white text-[var(--text-2)] border-[var(--border)] hover:border-[var(--border-strong)]'
-                    }`}>
-                    {o.l}
+            {/* Toolbar */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
+              <p style={{ fontSize: 13, color: 'var(--text-2)' }}>
+                {total === 0
+                  ? 'No clinics found'
+                  : <><strong style={{ fontFamily: 'var(--font-syne)', fontSize: 16, color: 'var(--text-1)' }}>{total}</strong> {total === 1 ? 'clinic' : 'clinics'} found</>
+                }
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', flexWrap: 'wrap' }}>
+                <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', marginRight: 4 }}>Sort</span>
+                {[
+                  { v: 'rating', l: 'Top rated' },
+                  { v: 'price_asc', l: 'Price ↑' },
+                  { v: 'price_desc', l: 'Price ↓' },
+                  { v: 'newest', l: 'Newest' },
+                ].map((o) => {
+                  const url = '/clinics?' + Object.entries({ ...params, sort: o.v, page: '1' })
+                    .filter(([, v]) => v).map(([k, v]) => `${k}=${encodeURIComponent(v!)}`).join('&')
+                  const active = sort === o.v
+                  return (
+                    <a key={o.v} href={url} style={{
+                      fontSize: 11, padding: '0.375rem 0.75rem', borderRadius: 6,
+                      border: `1px solid ${active ? 'var(--navy)' : 'var(--border)'}`,
+                      background: active ? 'var(--navy)' : 'white',
+                      color: active ? 'white' : 'var(--text-2)',
+                      fontWeight: 500, textDecoration: 'none',
+                    }}>
+                      {o.l}
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
+
+            {clinics.length === 0 ? (
+              <div style={{ padding: '6rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center' }}>
+                <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'var(--text-1)' }}>No clinics match</p>
+                <p style={{ fontSize: 13, color: 'var(--text-3)', maxWidth: 280 }}>Try adjusting your filters to see more results.</p>
+                <Link href="/clinics" style={{
+                  fontSize: 12, fontWeight: 600, padding: '0.625rem 1.25rem',
+                  borderRadius: 8, border: '1px solid var(--border)',
+                  color: 'var(--text-2)', textDecoration: 'none',
+                }}>
+                  Clear all filters
+                </Link>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3" style={{ gap: '1rem' }}>
+                {clinics.map((c) => <ClinicCard key={c.id} clinic={c} />)}
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid var(--border)' }}>
+                {page > 1 ? (
+                  <a href={'/clinics?' + Object.entries({ ...params, page: String(page - 1) }).filter(([,v]) => v).map(([k,v]) => `${k}=${encodeURIComponent(v!)}`).join('&')}
+                    style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, padding: '0.5rem 1rem', borderRadius: 8, border: '1px solid var(--border)', color: 'var(--text-2)', textDecoration: 'none', background: 'white' }}>
+                    <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 2.5L4 6l3.5 3.5"/></svg>
+                    Prev
                   </a>
-                )
-              })}
-            </div>
+                ) : <span style={{ fontSize: 12, padding: '0.5rem 1rem', color: 'var(--text-3)' }}>Prev</span>}
+
+                <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 12, color: 'var(--text-2)' }}>
+                  {page} <span style={{ color: 'var(--text-3)' }}>/ {totalPages}</span>
+                </span>
+
+                {page < totalPages ? (
+                  <a href={'/clinics?' + Object.entries({ ...params, page: String(page + 1) }).filter(([,v]) => v).map(([k,v]) => `${k}=${encodeURIComponent(v!)}`).join('&')}
+                    style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, padding: '0.5rem 1rem', borderRadius: 8, border: '1px solid var(--border)', color: 'var(--text-2)', textDecoration: 'none', background: 'white' }}>
+                    Next
+                    <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+                  </a>
+                ) : <span style={{ fontSize: 12, padding: '0.5rem 1rem', color: 'var(--text-3)' }}>Next</span>}
+              </div>
+            )}
           </div>
-
-          {clinics.length === 0 ? (
-            <div className="py-32 flex flex-col items-center gap-5 text-center">
-              <p className="font-[family-name:var(--font-syne)] font-bold text-[20px] text-[var(--text-1)]">No clinics match</p>
-              <p className="text-[13px] text-[var(--text-3)] max-w-xs">Try adjusting your filters to see more results.</p>
-              <Link href="/clinics" className="text-[12px] font-semibold px-5 py-2.5 rounded-lg border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--border-strong)] hover:text-[var(--text-1)] transition-colors">
-                Clear all filters
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {clinics.map((c) => <ClinicCard key={c.id} clinic={c} />)}
-            </div>
-          )}
-
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-3 mt-14 pt-8 border-t border-[var(--border)]">
-              {page > 1 ? (
-                <a href={'/clinics?' + Object.entries({ ...params, page: String(page - 1) }).filter(([,v]) => v).map(([k,v]) => `${k}=${encodeURIComponent(v!)}`).join('&')}
-                  className="flex items-center gap-1.5 text-[12px] font-semibold px-4 py-2.5 rounded-lg border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--border-strong)] hover:text-[var(--text-1)] bg-white transition-colors">
-                  <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8.5 3L5 6.5 8.5 10"/></svg>
-                  Prev
-                </a>
-              ) : <span className="text-[12px] px-4 py-2.5 text-[var(--text-3)]">Prev</span>}
-
-              <span className="font-[family-name:var(--font-geist-mono)] text-[12px] text-[var(--text-2)]">
-                {page} <span className="text-[var(--text-3)]">/ {totalPages}</span>
-              </span>
-
-              {page < totalPages ? (
-                <a href={'/clinics?' + Object.entries({ ...params, page: String(page + 1) }).filter(([,v]) => v).map(([k,v]) => `${k}=${encodeURIComponent(v!)}`).join('&')}
-                  className="flex items-center gap-1.5 text-[12px] font-semibold px-4 py-2.5 rounded-lg border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--border-strong)] hover:text-[var(--text-1)] bg-white transition-colors">
-                  Next
-                  <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 3L8 6.5 4.5 10"/></svg>
-                </a>
-              ) : <span className="text-[12px] px-4 py-2.5 text-[var(--text-3)]">Next</span>}
-            </div>
-          )}
         </div>
       </div>
     </div>

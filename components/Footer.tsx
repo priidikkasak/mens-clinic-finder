@@ -2,61 +2,49 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--navy)] mt-0">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10">
+    <footer style={{ background: 'var(--navy)' }}>
+      <div className="pg-w" style={{ paddingTop: '3.5rem', paddingBottom: '2rem' }}>
 
-        {/* Main row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 py-14 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto]" style={{ gap: '3rem', paddingBottom: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+
           <div>
-            <p className="font-[family-name:var(--font-syne)] font-extrabold text-[2rem] text-white tracking-tight leading-none">
-              MCF
-            </p>
-            <p className="text-[12px] text-white/40 mt-2 max-w-xs leading-relaxed">
+            <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: '1.4rem', color: 'white', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>MCF</p>
+            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', lineHeight: 1.6, maxWidth: 260 }}>
               The men&apos;s health clinic directory. Transparent pricing, verified providers, global coverage.
             </p>
           </div>
 
-          <div className="flex gap-16">
-            <div className="flex flex-col gap-4">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">Directory</p>
-              <ul className="flex flex-col gap-2.5">
-                {[
-                  ['/clinics', 'All clinics'],
-                  ['/clinics?region=EU', 'Europe'],
-                  ['/clinics?region=World', 'Worldwide'],
-                ].map(([href, label]) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[13px] text-white/50 hover:text-white transition-colors">
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">Company</p>
-              <ul className="flex flex-col gap-2.5">
-                {[
-                  ['/about', 'About'],
-                  ['/for-clinics', 'For clinics'],
-                ].map(([href, label]) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[13px] text-white/50 hover:text-white transition-colors">
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.25)', marginBottom: '0.25rem' }}>Directory</p>
+            {[
+              ['/clinics', 'All clinics'],
+              ['/clinics?region=EU', 'Europe'],
+              ['/clinics?region=World', 'Worldwide'],
+            ].map(([href, label]) => (
+              <Link key={href} href={href} style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.25)', marginBottom: '0.25rem' }}>Company</p>
+            {[
+              ['/about', 'About'],
+              ['/for-clinics', 'For clinics'],
+            ].map(([href, label]) => (
+              <Link key={href} href={href} style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-6">
-          <p className="text-[11px] text-white/25">
+        <div className="grid grid-cols-1 sm:grid-cols-2" style={{ paddingTop: '1.5rem', gap: '0.5rem' }}>
+          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>
             © {new Date().getFullYear()} MensClinicFinder. Informational purposes only.
           </p>
-          <p className="text-[11px] text-white/25">
+          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }} className="sm:text-right">
             Always consult a qualified medical professional.
           </p>
         </div>
