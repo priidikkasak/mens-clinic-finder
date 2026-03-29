@@ -54,16 +54,12 @@ export default function ClinicCard({ clinic }: ClinicCardProps) {
           <div className="mx-5 border-t border-[var(--border)]" />
 
           {/* Categories */}
-          <div className="px-5 py-3 flex flex-wrap gap-1.5">
+          <div className="px-5 py-3 flex flex-wrap gap-x-3 gap-y-1">
             {clinic.categories.map((cat) => (
               <span key={cat} className="text-[11px] font-medium text-[var(--text-2)] uppercase tracking-wide">
                 {getCategoryLabel(cat as Category)}
-                <span className="text-[var(--border-strong)] ml-1.5">·</span>
               </span>
-            )).reduce((acc: React.ReactNode[], el, i, arr) => {
-              acc.push(el)
-              return acc
-            }, []).map((el, i) => <span key={i}>{el}</span>)}
+            ))}
           </div>
 
           {/* Bottom: rating + CTA */}

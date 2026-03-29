@@ -23,7 +23,7 @@
   --green:   #1C7A41;
   --green-bg:#EDFAF3;
 
-  /* legacy aliases for components */
+  /* legacy aliases */
   --color-bg:             var(--bg);
   --color-surface:        var(--surface);
   --color-surface-2:      var(--surface-2);
@@ -82,4 +82,103 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--navy);
   border-radius: 50%;
   cursor: pointer;
+}
+
+/* ── Hero layout ──────────────────────────────────────────── */
+.hero-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 1.5rem 2rem;
+}
+
+.hero-right {
+  flex-shrink: 0;
+  width: 100%;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .hero-inner {
+    flex-direction: row;
+  }
+
+  .hero-left {
+    padding: 3.5rem 4rem 2.5rem;
+    border-right: 1px solid var(--border);
+    border-top: none;
+  }
+
+  .hero-right {
+    width: 400px;
+    border-top: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-right {
+    width: 440px;
+  }
+}
+
+/* ── Filter button states (avoids Tailwind dynamic purge) ─── */
+.filter-cat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.filter-cat-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--text-1);
+}
+
+.filter-cat-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: white;
+}
+
+.filter-pill-btn {
+  flex: 1;
+  padding: 0.5rem 0;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.filter-pill-btn:hover {
+  border-color: var(--border-strong);
+}
+
+.filter-pill-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: white;
 }

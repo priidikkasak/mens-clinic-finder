@@ -29,31 +29,29 @@ export default function HomeFilters() {
     router.push(`/clinics?${p.toString()}`)
   }
 
+  const hasFilters = cats.length > 0 || country || rating > 0
+
   return (
-    <div className="flex flex-col gap-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
       {/* Procedure */}
-      <div className="flex flex-col gap-3">
-        <label className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--text-3)]">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>
           Procedure
-        </label>
-        <div className="flex flex-col gap-2">
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
           {getAllCategories().map((cat) => {
             const on = cats.includes(cat)
             return (
               <button
                 key={cat}
                 onClick={() => toggleCat(cat)}
-                className={`flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-left text-[13px] font-medium border transition-all duration-150 ${
-                  on
-                    ? 'bg-[var(--navy)] text-white border-[var(--navy)]'
-                    : 'bg-white text-[var(--text-2)] border-[var(--border)] hover:border-[var(--border-strong)] hover:text-[var(--text-1)]'
-                }`}
+                className={`filter-cat-btn${on ? ' active' : ''}`}
               >
-                <span>{getCategoryLabel(cat)}</span>
+                <span>{getCategoryLabel(cat as Category)}</span>
                 {on && (
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
-                    <path d="M2.5 6.5l3 3 5-5" />
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 6.5l3 3 6-5.5"/>
                   </svg>
                 )}
               </button>
@@ -63,36 +61,43 @@ export default function HomeFilters() {
       </div>
 
       {/* Country */}
-      <div className="flex flex-col gap-3">
-        <label className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--text-3)]">Country</label>
-        <div className="relative">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>
+          Country
+        </p>
+        <div style={{ position: 'relative' }}>
           <select
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="w-full appearance-none bg-white border border-[var(--border)] rounded-lg px-4 py-2.5 text-[13px] text-[var(--text-1)] pr-9 focus:outline-none focus:border-[var(--border-strong)] cursor-pointer transition-colors"
+            style={{
+              width: '100%', appearance: 'none', background: 'white',
+              border: '1px solid var(--border)', borderRadius: 8,
+              padding: '0.625rem 2.25rem 0.625rem 0.875rem',
+              fontSize: 13, color: 'var(--text-1)',
+              cursor: 'pointer', outline: 'none',
+            }}
           >
             <option value="">Any country</option>
             {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
-          <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-3)]" width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="1.5">
+          <svg style={{ pointerEvents: 'none', position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-3)' }}
+            width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="1.5">
             <path d="M3.5 5.5l3.5 3.5 3.5-3.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
       </div>
 
       {/* Min rating */}
-      <div className="flex flex-col gap-3">
-        <label className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--text-3)]">Min. rating</label>
-        <div className="flex gap-2">
-          {[[0,'Any'],[4,'4.0+'],[4.5,'4.5+']].map(([v,l]) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>
+          Min. rating
+        </p>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {([[0,'Any'],[4,'4.0+'],[4.5,'4.5+']] as const).map(([v, l]) => (
             <button
-              key={v}
+              key={String(v)}
               onClick={() => setRating(Number(v))}
-              className={`flex-1 py-2 rounded-lg text-[12px] font-semibold border transition-colors ${
-                rating === Number(v)
-                  ? 'bg-[var(--navy)] text-white border-[var(--navy)]'
-                  : 'bg-white text-[var(--text-2)] border-[var(--border)] hover:border-[var(--border-strong)]'
-              }`}
+              className={`filter-pill-btn${rating === Number(v) ? ' active' : ''}`}
             >
               {l}
             </button>
@@ -101,20 +106,31 @@ export default function HomeFilters() {
       </div>
 
       {/* CTA */}
-      <div className="flex flex-col gap-2 pt-2">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '0.5rem' }}>
         <button
           onClick={find}
-          className="w-full py-3.5 rounded-lg bg-[var(--navy)] text-white text-[14px] font-bold tracking-wide hover:opacity-85 transition-opacity flex items-center justify-center gap-2"
+          style={{
+            width: '100%', padding: '0.875rem', borderRadius: 8,
+            background: 'var(--navy)', color: 'white',
+            fontSize: 14, fontWeight: 700, letterSpacing: '0.01em',
+            border: 'none', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            transition: 'opacity 0.15s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
         >
           Find clinics
           <svg width="15" height="15" fill="none" viewBox="0 0 15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 7.5h9M8.5 3.5L12 7.5l-3.5 4"/>
           </svg>
         </button>
-        {(cats.length > 0 || country || rating > 0) && (
+        {hasFilters && (
           <button
             onClick={() => { setCats([]); setCountry(''); setRating(0) }}
-            className="text-[12px] text-[var(--text-3)] hover:text-[var(--text-2)] text-center py-1 transition-colors"
+            style={{ fontSize: 12, color: 'var(--text-3)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem', transition: 'color 0.15s' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-3)')}
           >
             Clear filters
           </button>

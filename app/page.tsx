@@ -29,10 +29,7 @@ async function getData() {
 function catStats(all: { categories: string[]; price_min: number | null }[], cat: Category) {
   const m = all.filter((c) => c.categories.includes(cat))
   const prices = m.map((c) => c.price_min).filter((p): p is number => p !== null)
-  return {
-    count: m.length,
-    from: prices.length ? Math.min(...prices) : null,
-  }
+  return { count: m.length, from: prices.length ? Math.min(...prices) : null }
 }
 
 export default async function HomePage() {
@@ -41,108 +38,112 @@ export default async function HomePage() {
   return (
     <div>
 
-      {/* ════════════════════════════════════════════════════════════
-          HERO  —  full-height split with embedded search
-      ════════════════════════════════════════════════════════════ */}
-      <section className="border-b border-[var(--border)] min-h-[calc(100dvh-56px)] flex flex-col">
-        <div className="flex-1 flex flex-col lg:flex-row">
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="border-b border-[var(--border)]" style={{ minHeight: 'calc(100dvh - 56px)', display: 'flex', flexDirection: 'column' }}>
+        <div className="hero-inner">
 
-          {/* LEFT — headline */}
-          <div className="flex-1 flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-12 pb-10 lg:border-r border-[var(--border)]">
-
+          {/* Left — headline */}
+          <div className="hero-left">
             {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-auto">
-              <div className="h-px flex-1 bg-[var(--border)] max-w-[60px]" />
-              <span className="text-[10px] font-[family-name:var(--font-geist-mono)] uppercase tracking-[0.2em] text-[var(--text-3)]">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ height: 1, width: 48, background: 'var(--border)' }} />
+              <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-3)' }}>
                 Global directory · {total > 0 ? total : '25'} clinics
               </span>
             </div>
 
-            {/* Main headline */}
-            <div className="py-12 lg:py-0 lg:flex-1 lg:flex lg:flex-col lg:justify-center">
-              <h1 className="font-[family-name:var(--font-syne)] font-extrabold leading-[0.88] tracking-[-0.04em] text-[var(--text-1)]"
-                style={{ fontSize: 'clamp(3.8rem, 9vw, 9rem)' }}>
-                <span className="block">FIND</span>
-                <span className="block text-[var(--border-strong)]">THE</span>
-                <span className="block">RIGHT</span>
-                <span className="block">CLINIC.</span>
+            {/* Headline */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '3rem 0' }}>
+              <h1
+                style={{
+                  fontFamily: 'var(--font-syne)',
+                  fontWeight: 800,
+                  lineHeight: 0.9,
+                  letterSpacing: '-0.03em',
+                  color: 'var(--text-1)',
+                  fontSize: 'clamp(3.2rem, 5.5vw, 6.5rem)',
+                }}
+              >
+                <span style={{ display: 'block' }}>FIND</span>
+                <span style={{ display: 'block', color: 'var(--border-strong)' }}>THE</span>
+                <span style={{ display: 'block' }}>RIGHT</span>
+                <span style={{ display: 'block' }}>CLINIC.</span>
               </h1>
 
-              <p className="mt-8 text-[15px] md:text-[17px] text-[var(--text-2)] max-w-md leading-relaxed">
+              <p style={{ marginTop: '2rem', fontSize: 16, lineHeight: 1.65, color: 'var(--text-2)', maxWidth: 400 }}>
                 Verified men&apos;s health clinics across Europe and worldwide.
                 Transparent pricing. Private, professional care.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div style={{ marginTop: '1.75rem', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                 <Link
                   href="/clinics"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--navy)] text-white text-[14px] font-bold hover:opacity-85 transition-opacity"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '0.75rem 1.5rem', borderRadius: 8,
+                    background: 'var(--navy)', color: 'white',
+                    fontSize: 14, fontWeight: 700, textDecoration: 'none',
+                  }}
                 >
                   Browse all clinics
                   <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 7h8M7 3.5L10.5 7 7 10.5"/>
                   </svg>
                 </Link>
-                <span className="text-[13px] text-[var(--text-3)] hidden sm:block">
+                <span style={{ fontSize: 13, color: 'var(--text-3)' }}>
                   {countries > 0 ? countries : '18'} countries covered
                 </span>
               </div>
             </div>
 
-            {/* Bottom stats strip */}
-            <div className="grid grid-cols-3 gap-0 border-t border-[var(--border)] pt-6 mt-6">
+            {/* Stats */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
               {[
                 { n: total > 0 ? String(total) : '25', l: 'Clinics' },
                 { n: countries > 0 ? String(countries) : '18', l: 'Countries' },
                 { n: '5', l: 'Specialisations' },
               ].map((s) => (
-                <div key={s.l} className="pr-6">
-                  <p className="font-[family-name:var(--font-syne)] font-extrabold text-[2.2rem] leading-none tracking-tight text-[var(--text-1)]">
+                <div key={s.l} style={{ paddingRight: '1.5rem' }}>
+                  <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: '2rem', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--text-1)' }}>
                     {s.n}
                   </p>
-                  <p className="text-[11px] text-[var(--text-3)] mt-1 uppercase tracking-wider">{s.l}</p>
+                  <p style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.l}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* RIGHT — filter panel */}
-          <div className="w-full lg:w-[380px] xl:w-[420px] shrink-0 bg-[var(--surface)] border-t lg:border-t-0 border-[var(--border)] flex flex-col">
-            <div className="px-6 sm:px-8 pt-8 pb-3 border-b border-[var(--border)]">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-3)]">
-                Search now
-              </p>
-              <p className="text-[20px] font-[family-name:var(--font-syne)] font-bold text-[var(--text-1)] mt-1 tracking-tight">
+          {/* Right — filter panel */}
+          <div className="hero-right">
+            <div style={{ padding: '1.75rem 2rem', borderBottom: '1px solid var(--border)' }}>
+              <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Search now</p>
+              <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 20, color: 'var(--text-1)', marginTop: 4, letterSpacing: '-0.02em' }}>
                 Filter clinics
               </p>
             </div>
-            <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6">
+            <div style={{ flex: 1, overflowY: 'auto', padding: '1.75rem 2rem' }}>
               <HomeFilters />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════
-          PROCEDURES
-      ════════════════════════════════════════════════════════════ */}
+      {/* ── PROCEDURES ───────────────────────────────────────── */}
       <section className="border-b border-[var(--border)]">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-10">
 
-          {/* Section header */}
           <div className="flex items-end justify-between py-10 border-b border-[var(--border)]">
             <div className="flex items-baseline gap-5">
-              <span className="font-[family-name:var(--font-geist-mono)] text-[11px] text-[var(--text-3)] uppercase tracking-widest">01</span>
-              <h2 className="font-[family-name:var(--font-syne)] font-bold text-[24px] md:text-[30px] tracking-tight text-[var(--text-1)]">
+              <span className="font-mono text-[11px] text-[var(--text-3)] uppercase tracking-widest">01</span>
+              <h2 className="font-[family-name:var(--font-syne)] font-bold text-[22px] md:text-[28px] tracking-tight text-[var(--text-1)]">
                 Browse by procedure
               </h2>
             </div>
-            <Link href="/clinics" className="text-[12px] font-medium text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors hidden sm:block">
+            <Link href="/clinics" className="text-[12px] text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors hidden sm:block">
               View all →
             </Link>
           </div>
 
-          {/* Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
             {getAllCategories().map((cat, i) => {
               const { count, from } = catStats(all, cat)
@@ -150,13 +151,13 @@ export default async function HomePage() {
                 <Link
                   key={cat}
                   href={`/clinics?categories=${cat}`}
-                  className="group flex flex-col gap-6 py-8 px-1 sm:px-4 border-b sm:border-b-0 lg:border-r border-[var(--border)] last:border-r-0 hover:bg-[var(--surface)] transition-colors"
+                  className="group flex flex-col gap-5 py-8 px-4 border-b sm:border-b-0 lg:border-r border-[var(--border)] last:border-r-0 hover:bg-[var(--surface)] transition-colors"
                 >
-                  <span className="font-[family-name:var(--font-geist-mono)] text-[10px] text-[var(--text-3)] uppercase tracking-widest">
+                  <span className="font-mono text-[10px] text-[var(--text-3)] uppercase tracking-widest">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div className="flex flex-col gap-2">
-                    <p className="font-[family-name:var(--font-syne)] font-bold text-[17px] text-[var(--text-1)] leading-tight group-hover:text-[var(--navy)] transition-colors">
+                    <p className="font-[family-name:var(--font-syne)] font-bold text-[16px] text-[var(--text-1)] leading-tight group-hover:text-[var(--navy)] transition-colors">
                       {getCategoryLabel(cat)}
                     </p>
                     <p className="text-[12px] text-[var(--text-3)] leading-relaxed">
@@ -165,7 +166,7 @@ export default async function HomePage() {
                   </div>
                   <div className="mt-auto flex items-end justify-between">
                     <div>
-                      <p className="font-[family-name:var(--font-syne)] font-bold text-[28px] leading-none text-[var(--text-1)]">{count}</p>
+                      <p className="font-[family-name:var(--font-syne)] font-bold text-[2rem] leading-none text-[var(--text-1)]">{count}</p>
                       <p className="text-[10px] text-[var(--text-3)] uppercase tracking-wider mt-0.5">clinics</p>
                     </div>
                     {from && (
@@ -179,9 +180,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════
-          MANIFESTO STRIP
-      ════════════════════════════════════════════════════════════ */}
+      {/* ── MANIFESTO ────────────────────────────────────────── */}
       <section className="bg-[var(--navy)] border-b border-[var(--navy)]">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-10 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:divide-x divide-white/10">
@@ -191,7 +190,7 @@ export default async function HomePage() {
               { n: '03', title: 'Complete privacy', body: 'No account required. We don\'t log searches or sell data. Your health journey is yours.' },
             ].map((p) => (
               <div key={p.n} className="md:px-10 first:pl-0 last:pr-0 flex flex-col gap-4">
-                <span className="font-[family-name:var(--font-geist-mono)] text-[10px] text-white/30 uppercase tracking-widest">{p.n}</span>
+                <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">{p.n}</span>
                 <div className="w-8 h-px bg-[var(--gold)]" />
                 <h3 className="font-[family-name:var(--font-syne)] font-bold text-[18px] text-white tracking-tight">{p.title}</h3>
                 <p className="text-[13px] text-white/50 leading-relaxed">{p.body}</p>
@@ -201,25 +200,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════
-          FEATURED CLINICS
-      ════════════════════════════════════════════════════════════ */}
+      {/* ── FEATURED ─────────────────────────────────────────── */}
       {featured.length > 0 && (
         <section className="border-b border-[var(--border)]">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-10">
-
             <div className="flex items-end justify-between py-10 border-b border-[var(--border)]">
               <div className="flex items-baseline gap-5">
-                <span className="font-[family-name:var(--font-geist-mono)] text-[11px] text-[var(--text-3)] uppercase tracking-widest">02</span>
-                <h2 className="font-[family-name:var(--font-syne)] font-bold text-[24px] md:text-[30px] tracking-tight text-[var(--text-1)]">
+                <span className="font-mono text-[11px] text-[var(--text-3)] uppercase tracking-widest">02</span>
+                <h2 className="font-[family-name:var(--font-syne)] font-bold text-[22px] md:text-[28px] tracking-tight text-[var(--text-1)]">
                   Featured clinics
                 </h2>
               </div>
-              <Link href="/clinics" className="text-[12px] font-medium text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors hidden sm:block">
+              <Link href="/clinics" className="text-[12px] text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors hidden sm:block">
                 View all →
               </Link>
             </div>
-
             <div className="py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map((c) => <ClinicCard key={c.id} clinic={c} />)}
             </div>
@@ -227,20 +222,18 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ════════════════════════════════════════════════════════════
-          FOR CLINICS
-      ════════════════════════════════════════════════════════════ */}
+      {/* ── FOR CLINICS ──────────────────────────────────────── */}
       <section>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-10 py-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-[var(--border)]">
             <div className="max-w-xl">
-              <span className="font-[family-name:var(--font-geist-mono)] text-[10px] text-[var(--text-3)] uppercase tracking-widest">For clinic owners</span>
+              <span className="font-mono text-[10px] text-[var(--text-3)] uppercase tracking-widest">For clinic owners</span>
               <h2 className="font-[family-name:var(--font-syne)] font-extrabold text-[clamp(2rem,4vw,3.5rem)] leading-[0.95] tracking-[-0.03em] text-[var(--text-1)] mt-3">
                 REACH PATIENTS<br />WHO DECIDE.
               </h2>
             </div>
             <div className="flex flex-col gap-3 shrink-0">
-              <Link href="/for-clinics" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg bg-[var(--navy)] text-white text-[14px] font-bold hover:opacity-85 transition-opacity">
+              <Link href="/for-clinics" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[var(--navy)] text-white text-[14px] font-bold hover:opacity-85 transition-opacity">
                 View listing plans
                 <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 7h8M7 3.5L10.5 7 7 10.5"/>
@@ -249,7 +242,6 @@ export default async function HomePage() {
               <p className="text-[11px] text-[var(--text-3)] text-center">Free listing available</p>
             </div>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 pt-4">
             {[
               { val: 'Free', label: 'Standard listing', desc: 'Get discovered at no cost.' },
