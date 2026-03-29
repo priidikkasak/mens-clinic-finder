@@ -111,13 +111,14 @@ export default function HomeFilters() {
           onClick={find}
           style={{
             width: '100%', padding: '0.875rem', borderRadius: 8,
-            background: 'var(--navy)', color: 'white',
+            background: 'var(--grad-primary)', color: 'white',
             fontSize: 14, fontWeight: 700, letterSpacing: '0.01em',
             border: 'none', cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            boxShadow: '0 2px 10px rgba(12,28,46,0.2)',
             transition: 'opacity 0.15s',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.88')}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
         >
           Find clinics

@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { createServerClient } from '@/lib/supabase-server'
 import { Clinic, Region } from '@/lib/types'
+import { MOCK_CLINICS, filterMockClinics } from '@/lib/mock-clinics'
 import ClinicCard from '@/components/ClinicCard'
 import ClinicFilters from '@/components/ClinicFilters'
 import type { Metadata } from 'next'
@@ -19,15 +20,15 @@ interface PageProps {
 }
 
 async function getClinics(p: Awaited<PageProps['searchParams']>) {
+  const cats = p.categories ? p.categories.split(',').filter(Boolean) : []
+  const region = p.region as Region | undefined
+  const priceMax = p.priceMax ? parseInt(p.priceMax) : undefined
+  const minRating = p.minRating ? parseFloat(p.minRating) : undefined
+  const sort = p.sort ?? 'rating'
+  const page = p.page ? parseInt(p.page) : 1
+
   try {
     const sb = createServerClient()
-    const cats = p.categories ? p.categories.split(',').filter(Boolean) : []
-    const region = p.region as Region | undefined
-    const priceMax = p.priceMax ? parseInt(p.priceMax) : undefined
-    const minRating = p.minRating ? parseFloat(p.minRating) : undefined
-    const sort = p.sort ?? 'rating'
-    const page = p.page ? parseInt(p.page) : 1
-
     let q = sb.from('clinics').select('*', { count: 'exact' })
     if (cats.length) q = q.contains('categories', cats)
     if (region) q = q.eq('region', region)
@@ -35,18 +36,21 @@ async function getClinics(p: Awaited<PageProps['searchParams']>) {
     if (minRating) q = q.gte('rating', minRating)
     if (p.verifiedOnly === 'true') q = q.eq('verified', true)
     if (priceMax && priceMax < 10000) q = q.lte('price_max', priceMax)
-
     if (sort === 'price_asc') q = q.order('price_min', { ascending: true })
     else if (sort === 'price_desc') q = q.order('price_min', { ascending: false })
     else if (sort === 'newest') q = q.order('created_at', { ascending: false })
     else q = q.order('rating', { ascending: false })
-
     const from = (page - 1) * PAGE_SIZE
     q = q.range(from, from + PAGE_SIZE - 1)
     const { data, count } = await q
+    if (!count && (!data || data.length === 0)) throw new Error('empty')
     return { clinics: (data ?? []) as Clinic[], total: count ?? 0, page }
   } catch {
-    return { clinics: [] as Clinic[], total: 0, page: 1 }
+    return filterMockClinics({
+      categories: cats, region, country: p.country,
+      minRating, verifiedOnly: p.verifiedOnly === 'true',
+      priceMax, sort, page, pageSize: PAGE_SIZE,
+    })
   }
 }
 
@@ -54,8 +58,12 @@ async function getCountries() {
   try {
     const sb = createServerClient()
     const { data } = await sb.from('clinics').select('country').order('country')
-    return [...new Set((data ?? []).map((c: { country: string }) => c.country))]
-  } catch { return [] }
+    const countries = [...new Set((data ?? []).map((c: { country: string }) => c.country))]
+    if (countries.length === 0) throw new Error('empty')
+    return countries
+  } catch {
+    return [...new Set(MOCK_CLINICS.map(c => c.country))].sort()
+  }
 }
 
 export default async function ClinicsPage({ searchParams }: PageProps) {
@@ -68,7 +76,6 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
     <div style={{ minHeight: 'calc(100vh - 56px)' }}>
       <div className="pg-w">
 
-        {/* Header */}
         <div style={{ padding: '2.5rem 0', borderBottom: '1px solid var(--border)' }}>
           <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.5rem' }}>Directory</p>
           <h1 style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 'clamp(1.5rem,3vw,2rem)', color: 'var(--text-1)', letterSpacing: '-0.03em' }}>
@@ -76,11 +83,11 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr]" style={{ gap: '0' }}>
+        <div style={{ display: 'flex', gap: 0 }}>
 
           {/* Sidebar */}
-          <aside style={{ borderRight: '1px solid var(--border)', paddingRight: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
-            <div style={{ position: 'sticky', top: 80 }}>
+          <aside style={{ width: 220, flexShrink: 0, borderRight: '1px solid var(--border)', paddingRight: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
+            <div style={{ position: 'sticky', top: 72 }}>
               <Suspense>
                 <ClinicFilters countries={countries} />
               </Suspense>
@@ -88,17 +95,14 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
           </aside>
 
           {/* Results */}
-          <div style={{ paddingLeft: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
+          <div style={{ flex: 1, minWidth: 0, paddingLeft: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
 
-            {/* Toolbar */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '1.5rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border)' }}>
               <p style={{ fontSize: 13, color: 'var(--text-2)' }}>
-                {total === 0
-                  ? 'No clinics found'
-                  : <><strong style={{ fontFamily: 'var(--font-syne)', fontSize: 16, color: 'var(--text-1)' }}>{total}</strong> {total === 1 ? 'clinic' : 'clinics'} found</>
-                }
+                <strong style={{ fontFamily: 'var(--font-syne)', fontSize: 16, fontWeight: 700, color: 'var(--text-1)' }}>{total}</strong>
+                {' '}{total === 1 ? 'clinic' : 'clinics'} found
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                 <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', marginRight: 4 }}>Sort</span>
                 {[
                   { v: 'rating', l: 'Top rated' },
@@ -112,8 +116,8 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
                   return (
                     <a key={o.v} href={url} style={{
                       fontSize: 11, padding: '0.375rem 0.75rem', borderRadius: 6,
-                      border: `1px solid ${active ? 'var(--navy)' : 'var(--border)'}`,
-                      background: active ? 'var(--navy)' : 'white',
+                      border: `1px solid ${active ? 'transparent' : 'var(--border)'}`,
+                      background: active ? 'var(--grad-primary)' : 'white',
                       color: active ? 'white' : 'var(--text-2)',
                       fontWeight: 500, textDecoration: 'none',
                     }}>
@@ -127,12 +131,8 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
             {clinics.length === 0 ? (
               <div style={{ padding: '6rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center' }}>
                 <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'var(--text-1)' }}>No clinics match</p>
-                <p style={{ fontSize: 13, color: 'var(--text-3)', maxWidth: 280 }}>Try adjusting your filters to see more results.</p>
-                <Link href="/clinics" style={{
-                  fontSize: 12, fontWeight: 600, padding: '0.625rem 1.25rem',
-                  borderRadius: 8, border: '1px solid var(--border)',
-                  color: 'var(--text-2)', textDecoration: 'none',
-                }}>
+                <p style={{ fontSize: 13, color: 'var(--text-3)', maxWidth: 280 }}>Try adjusting your filters.</p>
+                <Link href="/clinics" style={{ fontSize: 12, fontWeight: 600, padding: '0.625rem 1.25rem', borderRadius: 8, border: '1px solid var(--border)', color: 'var(--text-2)', textDecoration: 'none' }}>
                   Clear all filters
                 </Link>
               </div>
@@ -147,10 +147,9 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
                 {page > 1 ? (
                   <a href={'/clinics?' + Object.entries({ ...params, page: String(page - 1) }).filter(([,v]) => v).map(([k,v]) => `${k}=${encodeURIComponent(v!)}`).join('&')}
                     style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, padding: '0.5rem 1rem', borderRadius: 8, border: '1px solid var(--border)', color: 'var(--text-2)', textDecoration: 'none', background: 'white' }}>
-                    <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 2.5L4 6l3.5 3.5"/></svg>
-                    Prev
+                    ← Prev
                   </a>
-                ) : <span style={{ fontSize: 12, padding: '0.5rem 1rem', color: 'var(--text-3)' }}>Prev</span>}
+                ) : <span style={{ fontSize: 12, padding: '0.5rem 1rem', color: 'var(--text-3)' }}>← Prev</span>}
 
                 <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 12, color: 'var(--text-2)' }}>
                   {page} <span style={{ color: 'var(--text-3)' }}>/ {totalPages}</span>
@@ -159,10 +158,9 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
                 {page < totalPages ? (
                   <a href={'/clinics?' + Object.entries({ ...params, page: String(page + 1) }).filter(([,v]) => v).map(([k,v]) => `${k}=${encodeURIComponent(v!)}`).join('&')}
                     style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, padding: '0.5rem 1rem', borderRadius: 8, border: '1px solid var(--border)', color: 'var(--text-2)', textDecoration: 'none', background: 'white' }}>
-                    Next
-                    <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg>
+                    Next →
                   </a>
-                ) : <span style={{ fontSize: 12, padding: '0.5rem 1rem', color: 'var(--text-3)' }}>Next</span>}
+                ) : <span style={{ fontSize: 12, padding: '0.5rem 1rem', color: 'var(--text-3)' }}>Next →</span>}
               </div>
             )}
           </div>

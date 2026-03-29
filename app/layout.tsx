@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Syne } from 'next/font/google'
+import { Geist, Geist_Mono, Outfit } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -7,7 +7,8 @@ import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
-const syne = Syne({ variable: '--font-syne', subsets: ['latin'], weight: ['700', '800'] })
+// Outfit: geometric, youthful, open letterforms — replaces Syne (too compressed)
+const outfit = Outfit({ variable: '--font-syne', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${syne.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable}`}>
       <body className="flex flex-col min-h-dvh">
         <NuqsAdapter>
           <Nav />
