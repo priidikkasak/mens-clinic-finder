@@ -5,8 +5,8 @@
   --surface:      #F8F7F4;
   --surface-2:    #F0EDE6;
   --surface-3:    #E8E3DA;
-  --border:       #DDD8CF;
-  --border-strong:#B8B2A6;
+  --border:       #E4E0D8;
+  --border-strong:#A8A29A;
 
   --text-1:  #0B0906;
   --text-2:  #524D46;
@@ -24,7 +24,6 @@
   --ink:    var(--navy);
   --ink-fg: var(--navy-fg);
 
-  /* Gradient for primary buttons */
   --grad-primary: linear-gradient(135deg, #1a3a5c 0%, #0c1c2e 100%);
   --grad-primary-hover: linear-gradient(135deg, #1f4570 0%, #0e2240 100%);
 }
@@ -54,7 +53,6 @@ body {
 /* ── Page container ───────────────────────────────────────────
    .pg  : standard width (articles, sections)
    .pg-w: wide (max 1280px for grids)
-   Both use the same responsive padding.
 ───────────────────────────────────────────────────────────── */
 .pg, .pg-w {
   width: 100%;
@@ -92,7 +90,7 @@ body {
 .hero-right {
   flex-shrink: 0;
   width: 100%;
-  background: var(--surface);
+  background: white;
   border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -117,40 +115,90 @@ body {
   .hero-right { width: 420px; }
 }
 
-/* ── Filter button states ─────────────────────────────────── */
+/* ── Clinic cards ─────────────────────────────────────────── */
+.clinic-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+  position: relative;
+}
+a:hover .clinic-card {
+  border-color: var(--border-strong);
+  box-shadow: 0 10px 36px rgba(12, 28, 46, 0.10);
+  transform: translateY(-3px);
+}
+.clinic-card-view {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.01em;
+  transition: gap 0.15s;
+  white-space: nowrap;
+}
+a:hover .clinic-card-view { gap: 7px; }
+
+/* ── Filter procedure rows ────────────────────────────────── */
 .filter-cat-btn {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.625rem;
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  cursor: pointer;
   text-align: left;
   font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: color 0.12s;
+}
+.filter-cat-btn:last-of-type { border-bottom: none; }
+.filter-cat-btn:hover { color: var(--text-1); }
+.filter-cat-btn.active { color: var(--navy); font-weight: 600; }
+
+.filter-check {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.12s, background 0.12s;
+}
+.filter-cat-btn:hover .filter-check { border-color: var(--navy); }
+.filter-cat-btn.active .filter-check {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+/* ── Filter pills ─────────────────────────────────────────── */
+.filter-pill-btn {
+  flex: 1;
+  padding: 0.4rem 0;
+  border-radius: 4px;
+  font-size: 12px;
   font-weight: 500;
   border: 1px solid var(--border);
   background: white;
   color: var(--text-2);
   cursor: pointer;
+  text-align: center;
   transition: border-color 0.12s, background 0.12s, color 0.12s;
 }
-.filter-cat-btn:hover { border-color: var(--border-strong); color: var(--text-1); }
-.filter-cat-btn.active { background: var(--navy); border-color: var(--navy); color: white; }
-
-.filter-pill-btn {
-  flex: 1;
-  padding: 0.4rem 0;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  background: white;
-  color: var(--text-2);
-  cursor: pointer;
-  transition: border-color 0.12s, background 0.12s, color 0.12s;
-}
-.filter-pill-btn:hover { border-color: var(--border-strong); }
-.filter-pill-btn.active { background: var(--navy); border-color: var(--navy); color: white; }
+.filter-pill-btn:hover { border-color: var(--border-strong); color: var(--text-1); }
+.filter-pill-btn.active { background: var(--navy); border-color: var(--navy); color: white; font-weight: 600; }
 
 /* ── Range input ──────────────────────────────────────────── */
 input[type="range"] {

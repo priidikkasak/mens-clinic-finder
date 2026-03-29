@@ -86,7 +86,7 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
         <div style={{ display: 'flex', gap: 0 }}>
 
           {/* Sidebar */}
-          <aside style={{ width: 220, flexShrink: 0, borderRight: '1px solid var(--border)', paddingRight: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
+          <aside style={{ width: 220, flexShrink: 0, borderRight: '1px solid var(--border)', paddingRight: '2rem', paddingTop: '2rem', paddingBottom: '2rem', background: 'white' }}>
             <div style={{ position: 'sticky', top: 72 }}>
               <Suspense>
                 <ClinicFilters countries={countries} />
@@ -102,8 +102,8 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
                 <strong style={{ fontFamily: 'var(--font-syne)', fontSize: 16, fontWeight: 700, color: 'var(--text-1)' }}>{total}</strong>
                 {' '}{total === 1 ? 'clinic' : 'clinics'} found
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.1em', marginRight: 4 }}>Sort</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+                <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 9, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.18em', marginRight: '0.75rem' }}>Sort</span>
                 {[
                   { v: 'rating', l: 'Top rated' },
                   { v: 'price_asc', l: 'Price ↑' },
@@ -115,11 +115,12 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
                   const active = sort === o.v
                   return (
                     <a key={o.v} href={url} style={{
-                      fontSize: 11, padding: '0.375rem 0.75rem', borderRadius: 6,
-                      border: `1px solid ${active ? 'transparent' : 'var(--border)'}`,
-                      background: active ? 'var(--grad-primary)' : 'white',
-                      color: active ? 'white' : 'var(--text-2)',
-                      fontWeight: 500, textDecoration: 'none',
+                      fontSize: 12, padding: '0.375rem 0.625rem',
+                      fontWeight: active ? 700 : 400,
+                      color: active ? 'var(--text-1)' : 'var(--text-3)',
+                      textDecoration: 'none',
+                      borderBottom: `2px solid ${active ? 'var(--navy)' : 'transparent'}`,
+                      transition: 'color 0.12s',
                     }}>
                       {o.l}
                     </a>

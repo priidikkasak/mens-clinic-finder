@@ -24,40 +24,47 @@ export default function ClinicFilters({ countries }: { countries: string[] }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Filters</p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border)' }}>
+        <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Filters</p>
         {hasFilters ? (
-          <button onClick={clear} style={{ fontSize: 11, color: 'var(--text-3)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 2 }}>
+          <button onClick={clear} style={{ fontSize: 11, color: 'var(--text-3)', background: 'none', border: 'none', cursor: 'pointer', transition: 'color 0.12s' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-3)')}
+          >
             Clear all
           </button>
         ) : null}
       </div>
 
       {/* Procedure */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>Procedure</p>
-        {getAllCategories().map((cat) => {
-          const on = cats.includes(cat)
-          return (
-            <button
-              key={cat}
-              onClick={() => toggle(cat)}
-              className={`filter-cat-btn${on ? ' active' : ''}`}
-            >
-              <span>{getCategoryLabel(cat as Category)}</span>
-              {on && (
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 6l2.5 2.5 5.5-5"/>
-                </svg>
-              )}
-            </button>
-          )
-        })}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+        <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)', marginBottom: '0.375rem' }}>Procedure</p>
+        <div>
+          {getAllCategories().map((cat) => {
+            const on = cats.includes(cat)
+            return (
+              <button
+                key={cat}
+                onClick={() => toggle(cat)}
+                className={`filter-cat-btn${on ? ' active' : ''}`}
+              >
+                <span className="filter-check">
+                  {on && (
+                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="white" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1.5 4.5l2 2L7.5 2"/>
+                    </svg>
+                  )}
+                </span>
+                <span>{getCategoryLabel(cat as Category)}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* Region */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>Region</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
+        <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Region</p>
         <div style={{ display: 'flex', gap: '0.375rem' }}>
           {[['', 'All'], ['EU', 'Europe'], ['World', 'Global']].map(([v, l]) => (
             <button key={v} onClick={() => setRegion(v as string)}
@@ -69,31 +76,31 @@ export default function ClinicFilters({ countries }: { countries: string[] }) {
       </div>
 
       {/* Country */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>Country</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
+        <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Country</p>
         <div style={{ position: 'relative' }}>
           <select value={country} onChange={(e) => setCountry(e.target.value)}
             style={{
               width: '100%', appearance: 'none', background: 'white',
-              border: '1px solid var(--border)', borderRadius: 8,
-              padding: '0.625rem 2.25rem 0.625rem 0.875rem',
-              fontSize: 12, color: 'var(--text-1)',
+              border: '1px solid var(--border)', borderRadius: 6,
+              padding: '0.5625rem 2rem 0.5625rem 0.75rem',
+              fontSize: 12, color: country ? 'var(--text-1)' : 'var(--text-3)',
               cursor: 'pointer', outline: 'none',
             }}>
             <option value="">All countries</option>
             {countries.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
-          <svg style={{ pointerEvents: 'none', position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-3)' }}
-            width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.5">
-            <path d="M3 4.5l3 3 3-3" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg style={{ pointerEvents: 'none', position: 'absolute', right: 9, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-3)' }}
+            width="11" height="11" fill="none" viewBox="0 0 11 11" stroke="currentColor" strokeWidth="1.5">
+            <path d="M2.5 4l3 3 3-3" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
       </div>
 
       {/* Max price */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>Max budget</p>
+          <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Max budget</p>
           <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 12, fontWeight: 600, color: 'var(--text-1)' }}>
             {priceMax >= 10000 ? 'Any' : `€${priceMax.toLocaleString()}`}
           </span>
@@ -106,10 +113,10 @@ export default function ClinicFilters({ countries }: { countries: string[] }) {
       </div>
 
       {/* Rating */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)' }}>Min. rating</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
+        <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Min. rating</p>
         <div style={{ display: 'flex', gap: '0.375rem' }}>
-          {([[0,'Any'],[4.0,'4+'],[4.5,'4.5+']] as const).map(([v, l]) => (
+          {([[0, 'Any'], [4.0, '4+'], [4.5, '4.5+']] as const).map(([v, l]) => (
             <button key={String(v)} onClick={() => setMinRating(Number(v))}
               className={`filter-pill-btn${minRating === Number(v) ? ' active' : ''}`}>
               {l}
@@ -119,7 +126,7 @@ export default function ClinicFilters({ countries }: { countries: string[] }) {
       </div>
 
       {/* Verified */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.25rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.125rem' }}>
         <div>
           <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-1)' }}>Verified only</p>
           <p style={{ fontSize: 10, color: 'var(--text-3)', marginTop: 2 }}>Confirmed credentials</p>
@@ -128,16 +135,16 @@ export default function ClinicFilters({ countries }: { countries: string[] }) {
           role="switch" aria-checked={verified}
           onClick={() => setVerified(!verified)}
           style={{
-            position: 'relative', width: 40, height: 20, borderRadius: 9999,
+            position: 'relative', width: 38, height: 20, borderRadius: 9999,
             background: verified ? 'var(--navy)' : 'var(--surface-3)',
             border: 'none', cursor: 'pointer', transition: 'background 0.2s', flexShrink: 0,
           }}
         >
           <span style={{
             position: 'absolute', top: 2,
-            left: verified ? 22 : 2,
+            left: verified ? 20 : 2,
             width: 16, height: 16, borderRadius: '50%',
-            background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+            background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
             transition: 'left 0.2s',
           }} />
         </button>
