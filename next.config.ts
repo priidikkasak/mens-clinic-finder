@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  // Allow builds without env vars (they'll fail at runtime, not build time)
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+}
 
-export default nextConfig;
+export default nextConfig
