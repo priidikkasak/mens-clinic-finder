@@ -21,20 +21,26 @@ export default function ClinicFilters({ countries }: { countries: string[] }) {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.25rem' }}>
 
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border)' }}>
-        <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)' }}>Filters</p>
-        {hasFilters ? (
-          <button onClick={clear} style={{ fontSize: 11, color: 'var(--text-3)', background: 'none', border: 'none', cursor: 'pointer', transition: 'color 0.12s' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
+      {/* Clear all — only shown when filters active */}
+      {hasFilters ? (
+        <div>
+          <button onClick={clear} style={{
+            fontSize: 11, color: 'var(--text-3)', background: 'none', border: 'none',
+            cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 5,
+            transition: 'color 0.12s',
+          }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-1)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-3)')}
           >
-            Clear all
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
+            </svg>
+            Clear all filters
           </button>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
 
       {/* Procedure */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>

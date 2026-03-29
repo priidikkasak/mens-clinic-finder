@@ -106,13 +106,13 @@ export default async function HomePage() {
           </div>
 
           <div className="hero-right">
-            <div style={{ padding: '1.5rem 1.75rem', borderBottom: '1px solid var(--border)' }}>
-              <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)', marginBottom: 4 }}>Quick search</p>
-              <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>
-                Filter clinics
+            <div style={{ padding: '2rem 2rem 1.5rem' }}>
+              <p style={{ fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-3)', marginBottom: '0.75rem' }}>Quick search</p>
+              <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 20, color: 'var(--text-1)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+                Find your clinic
               </p>
             </div>
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem 1.75rem' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '0 2rem 2rem' }}>
               <HomeFilters />
             </div>
           </div>
@@ -192,7 +192,7 @@ export default async function HomePage() {
               </div>
               <Link href="/clinics" style={{ fontSize: 12, color: 'var(--text-3)', textDecoration: 'none' }}>View all →</Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: '1rem', padding: '2rem 0' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: '1.25rem', padding: '2.5rem 0' }}>
               {featured.map((c) => <ClinicCard key={c.id} clinic={c} />)}
             </div>
           </div>

@@ -86,7 +86,7 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
         <div style={{ display: 'flex', gap: 0 }}>
 
           {/* Sidebar */}
-          <aside style={{ width: 220, flexShrink: 0, borderRight: '1px solid var(--border)', paddingRight: '2rem', paddingTop: '2rem', paddingBottom: '2rem', background: 'white' }}>
+          <aside style={{ width: 240, flexShrink: 0, borderRight: '1px solid var(--border)', paddingRight: '2.5rem', paddingTop: '3rem', paddingBottom: '3rem', background: 'white' }}>
             <div style={{ position: 'sticky', top: 72 }}>
               <Suspense>
                 <ClinicFilters countries={countries} />
@@ -95,9 +95,9 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
           </aside>
 
           {/* Results */}
-          <div style={{ flex: 1, minWidth: 0, paddingLeft: '2rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
+          <div style={{ flex: 1, minWidth: 0, paddingLeft: '3rem', paddingTop: '3rem', paddingBottom: '3rem' }}>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '1.5rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border)' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border)' }}>
               <p style={{ fontSize: 13, color: 'var(--text-2)' }}>
                 <strong style={{ fontFamily: 'var(--font-syne)', fontSize: 16, fontWeight: 700, color: 'var(--text-1)' }}>{total}</strong>
                 {' '}{total === 1 ? 'clinic' : 'clinics'} found
@@ -138,7 +138,7 @@ export default async function ClinicsPage({ searchParams }: PageProps) {
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3" style={{ gap: '1rem' }}>
+              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '1.25rem' }}>
                 {clinics.map((c) => <ClinicCard key={c.id} clinic={c} />)}
               </div>
             )}
