@@ -15,6 +15,10 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+  }, [path])
+
+  useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', handler, { passive: true })
     handler()
