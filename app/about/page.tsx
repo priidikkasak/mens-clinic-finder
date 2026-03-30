@@ -108,9 +108,6 @@ export default function AboutPage() {
           <div className="about-cta-btns">
             <Link href="/" className="btn-main">
               Browse clinics
-              <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 6.5h8M6.5 3l3.5 3.5L6.5 10"/>
-              </svg>
             </Link>
             <Link href="/for-clinics" className="btn-outline">List your clinic</Link>
           </div>

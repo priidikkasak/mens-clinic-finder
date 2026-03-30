@@ -21,9 +21,6 @@ export default function ForClinicsPage() {
           <div style={{ marginTop: '2rem' }}>
             <a href="mailto:clinics@mensclincfinder.com" className="btn-main">
               Contact us to get listed
-              <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 6.5h8M6.5 3l3.5 3.5L6.5 10"/>
-              </svg>
             </a>
           </div>
         </div>
@@ -106,13 +103,7 @@ export default function ForClinicsPage() {
           <div className="about-cta-btns">
             <a href="mailto:clinics@mensclincfinder.com" className="btn-main">
               Contact us
-              <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 6.5h8M6.5 3l3.5 3.5L6.5 10"/>
-              </svg>
             </a>
-            <span style={{ fontSize: 12, color: 'var(--text-3)', fontFamily: 'var(--font-geist-mono)' }}>
-              clinics@mensclincfinder.com
-            </span>
           </div>
         </div>
       </section>

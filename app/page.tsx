@@ -133,15 +133,9 @@ export default async function HomePage() {
             <div className="hero-actions">
               <a href="#directory" className="btn-main">
                 Browse {total} clinics
-                <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 7h8M7 3.5L10.5 7 7 10.5"/>
-                </svg>
               </a>
               <Link href="/for-clinics" className="btn-outline">
                 For clinics
-                <svg width="12" height="12" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5V8"/>
-                </svg>
               </Link>
             </div>
 
@@ -297,9 +291,6 @@ export default async function HomePage() {
           <div className="cta-right">
             <Link href="/for-clinics" className="btn-main">
               List your clinic
-              <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 6.5h8M6.5 3l3.5 3.5L6.5 10"/>
-              </svg>
             </Link>
           </div>
         </div>
