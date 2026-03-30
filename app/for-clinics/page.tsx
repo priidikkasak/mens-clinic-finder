@@ -79,6 +79,26 @@ export default function ForClinicsPage() {
         </div>
       </section>
 
+      {/* Our reach */}
+      <section className="about-section about-section--alt">
+        <div className="pg-w">
+          <p className="page-eyebrow">Our reach</p>
+          <div className="fc-reach-grid">
+            {[
+              { n: '12k+', l: 'Monthly visitors' },
+              { n: '18+', l: 'Countries covered' },
+              { n: '5', l: 'Treatment areas' },
+              { n: '100%', l: 'Intent-based traffic' },
+            ].map((s) => (
+              <div key={s.l} className="fc-reach-stat">
+                <span className="fc-reach-n">{s.n}</span>
+                <span className="fc-reach-l">{s.l}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="about-cta">
         <div className="pg-w about-cta-inner">

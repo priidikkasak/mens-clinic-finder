@@ -161,23 +161,59 @@ export default async function HomePage() {
 
           </div>
 
-          {/* Right — ECG / health monitoring decoration */}
+          {/* Right — male vitality card */}
           <div className="hero-deco" aria-hidden="true">
             <div className="hdc-ecg-card">
               <div className="hdc-ecg-header">
                 <div>
-                  <div className="hdc-ecg-title">Health Monitoring</div>
-                  <div className="hdc-ecg-subtitle">Men&apos;s Clinic Directory</div>
+                  <div className="hdc-ecg-title">Vitality Profile</div>
+                  <div className="hdc-ecg-subtitle">Men&apos;s Health Scan</div>
                 </div>
                 <div className="hdc-ecg-live">
                   <span className="hdc-ecg-dot" />
                   LIVE
                 </div>
               </div>
-              <div className="hdc-ecg-track">
-                <svg className="hdc-ecg-svg" viewBox="0 0 600 80" preserveAspectRatio="none">
-                  <path className="hdc-ecg-path" d="M 0,52 L 15,52 Q 22,52 25,44 Q 30,36 35,44 Q 40,52 45,52 L 49,52 L 51,62 L 56,7 L 61,62 L 65,52 L 82,52 Q 92,52 98,37 Q 110,20 117,37 Q 124,52 142,52 L 200,52 L 215,52 Q 222,52 225,44 Q 230,36 235,44 Q 240,52 245,52 L 249,52 L 251,62 L 256,7 L 261,62 L 265,52 L 282,52 Q 292,52 298,37 Q 310,20 317,37 Q 324,52 342,52 L 400,52 L 415,52 Q 422,52 425,44 Q 430,36 435,44 Q 440,52 445,52 L 449,52 L 451,62 L 456,7 L 461,62 L 465,52 L 482,52 Q 492,52 498,37 Q 510,20 517,37 Q 524,52 542,52 L 600,52" />
+              {/* Body scan area */}
+              <div className="hdc-body-area">
+                <div className="hdc-body-glow" />
+                <div className="hdc-body-scan" />
+                <svg className="hdc-body-fig" viewBox="0 0 100 180" fill="none">
+                  {/* Head */}
+                  <circle cx="50" cy="13" r="11" stroke="#C9A057" strokeWidth="1.3"/>
+                  {/* Neck */}
+                  <path d="M44 24 L43 32 M56 24 L57 32" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round"/>
+                  {/* Torso */}
+                  <path d="M43 32 L28 36 L14 44 L16 60 L18 80 L22 100 L50 114 L78 100 L82 80 L84 60 L86 44 L72 36 L57 32" stroke="#C9A057" strokeWidth="1.3" strokeLinejoin="round" fill="rgba(201,160,87,0.05)"/>
+                  {/* Left arm */}
+                  <path d="M14 44 L8 76 L12 96" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  {/* Right arm */}
+                  <path d="M86 44 L92 76 L88 96" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  {/* Left leg */}
+                  <path d="M22 100 L18 168" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round"/>
+                  {/* Right leg */}
+                  <path d="M78 100 L82 168" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round"/>
+                  {/* Chest detail */}
+                  <path d="M28 48 Q50 60 72 48" stroke="#C9A057" strokeWidth="0.7" strokeLinecap="round" opacity="0.4" fill="none"/>
+                  {/* Centre line */}
+                  <line x1="50" y1="34" x2="50" y2="108" stroke="#C9A057" strokeWidth="0.6" strokeDasharray="3 4" opacity="0.25"/>
                 </svg>
+                {/* Metric bars */}
+                <div className="hdc-body-bars">
+                  {([
+                    { l: 'Testosterone', p: 86 },
+                    { l: 'Vitality', p: 74 },
+                    { l: 'Fertility', p: 91 },
+                  ] as const).map(m => (
+                    <div key={m.l} className="hdc-body-bar">
+                      <span className="hdc-body-bar-l">{m.l}</span>
+                      <div className="hdc-body-bar-track">
+                        <div className="hdc-body-bar-fill" style={{width: `${m.p}%`}} />
+                      </div>
+                      <span className="hdc-body-bar-v">{m.p}%</span>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="hdc-ecg-metrics">
                 <div className="hdc-ecg-metric">
