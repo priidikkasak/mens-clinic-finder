@@ -38,10 +38,6 @@ export default function Nav() {
 
         {/* Right */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}>
-          <Link href="/" className="nav-for-clinics for-clinics-link">
-            Browse clinics
-          </Link>
-
           {/* Hamburger */}
           <button
             onClick={() => setOpen(!open)}

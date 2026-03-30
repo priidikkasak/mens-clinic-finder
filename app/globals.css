@@ -43,7 +43,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.55;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection { background: var(--navy); color: var(--navy-fg); }

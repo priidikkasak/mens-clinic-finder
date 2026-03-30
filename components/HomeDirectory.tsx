@@ -62,14 +62,12 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
           paddingBottom: '3rem',
         }}>
 
-          {hasFilters && (
-            <button onClick={clear} className="filter-clear-btn">
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-                <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
-              </svg>
-              Clear all filters
-            </button>
-          )}
+          <button onClick={clear} className="filter-clear-btn" style={{ visibility: hasFilters ? 'visible' : 'hidden' }}>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              <line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>
+            </svg>
+            Clear all filters
+          </button>
 
           {/* Procedure */}
           <div className="filter-group">
