@@ -177,39 +177,47 @@ export default async function HomePage() {
               {/* Body scan area */}
               <div className="hdc-body-area">
                 <div className="hdc-body-glow" />
-                <svg className="hdc-body-fig" viewBox="0 0 60 150" fill="none">
+                <svg className="hdc-body-fig" viewBox="0 0 60 120" fill="none">
                   {/* Head */}
-                  <circle cx="30" cy="10" r="9" fill="rgba(201,160,87,0.9)"/>
-                  {/* Full body silhouette — torso, arms, legs as one solid shape */}
+                  <circle cx="30" cy="9" r="9" fill="rgba(201,160,87,0.9)"/>
+                  {/* Muscular body silhouette — fully curved, no straight lines */}
                   <path
                     fill="rgba(201,160,87,0.9)"
-                    d="M30 19
-                       C36 19 44 22 46 28
-                       L 52 58
-                       L 46 60
-                       L 42 34
-                       L 42 76
-                       L 44 86
-                       L 46 140
-                       L 38 140
-                       L 36 100
-                       L 33 96
-                       L 27 96
-                       L 24 100
-                       L 22 140
-                       L 14 140
-                       L 16 86
-                       L 18 76
-                       L 18 34
-                       L 14 60
-                       L 8 58
-                       L 14 28
-                       C 16 22 24 19 30 19
+                    d="M 33 18
+                       C 43 18 55 22 57 29
+                       C 58 36 56 46 53 57
+                       C 51 63 49 67 47 70
+                       L 44 72
+                       C 45 67 47 61 48 54
+                       C 49 46 47 39 43 36
+                       C 44 42 44 50 43 58
+                       C 42 62 41 66 42 70
+                       C 43 76 44 84 43 92
+                       C 43 98 43 103 42 108
+                       L 46 118 L 37 118
+                       C 37 111 36 104 37 96
+                       C 37 86 36 78 35 70
+                       C 34 67 32 66 30 66
+                       C 28 66 26 67 25 70
+                       C 24 78 23 86 23 96
+                       C 24 104 23 111 23 118
+                       L 14 118
+                       L 17 108
+                       C 17 103 17 98 17 92
+                       C 16 84 16 76 18 70
+                       C 18 66 18 62 17 58
+                       C 16 50 16 42 17 36
+                       C 13 39 11 46 12 54
+                       C 13 61 15 67 15 72
+                       L 16 70
+                       C 13 67 10 63 9 57
+                       C 6 46 2 36 3 29
+                       C 5 22 17 18 27 18
                        Z"
                   />
                   {/* Health pulse — chest area */}
-                  <circle cx="30" cy="50" r="3" fill="#16a34a" className="hdc-health-dot"/>
-                  <circle cx="30" cy="50" r="3" fill="none" stroke="#16a34a" strokeWidth="1" className="hdc-health-ring"/>
+                  <circle cx="30" cy="45" r="3" fill="#16a34a" className="hdc-health-dot"/>
+                  <circle cx="30" cy="45" r="3" fill="none" stroke="#16a34a" strokeWidth="1" className="hdc-health-ring"/>
                 </svg>
                 {/* Metric bars */}
                 <div className="hdc-body-bars">
