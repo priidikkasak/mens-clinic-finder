@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { Clinic, Category, Region } from '@/lib/types'
 import { getAllCategories, getCategoryLabel, countryFlag } from '@/lib/utils'
 import ClinicCard from './ClinicCard'
@@ -16,6 +16,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
   const [priceMax, setPriceMax] = useState(5000)
   const [minRating, setMinRating] = useState(0)
   const [page, setPage] = useState(1)
+  const resultsRef = useRef<HTMLDivElement>(null)
 
   const countries = useMemo(() =>
     [...new Set(clinics.map(c => c.country))].sort(),
@@ -40,6 +41,12 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
 
   const totalPages = Math.ceil(filteredAll.length / PAGE_SIZE)
   const paginated = filteredAll.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const showFrom = filteredAll.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1
+  const showTo = Math.min(page * PAGE_SIZE, filteredAll.length)
+
+  function scrollToResults() {
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
   const hasFilters = activeCat !== null || region !== '' || country !== '' || verifiedOnly || priceMax < 5000 || minRating > 0
 
   function clear() {
@@ -54,12 +61,16 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
         {/* ── Sidebar ──────────────────────────────────────── */}
         <aside style={{
           width: 240, flexShrink: 0,
+          alignSelf: 'flex-start',
+          position: 'sticky', top: 0,
           borderRight: '1px solid var(--border)',
           paddingRight: '2.5rem',
           paddingTop: '3rem',
           paddingBottom: '3rem',
+          maxHeight: '100dvh',
+          overflowY: 'auto',
         }}>
-          <div style={{ position: 'sticky', top: 72 }}>
+          <div>
 
             {hasFilters && (
               <button onClick={clear} className="filter-clear-btn">
@@ -186,7 +197,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
         </aside>
 
         {/* ── Results ──────────────────────────────────────── */}
-        <div style={{ flex: 1, minWidth: 0, paddingLeft: '3rem', paddingTop: '3rem', paddingBottom: '3rem' }}>
+        <div ref={resultsRef} style={{ flex: 1, minWidth: 0, paddingLeft: '3rem', paddingTop: '3rem', paddingBottom: '3rem' }}>
 
           {/* Results header */}
           <div style={{
@@ -194,14 +205,20 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
             marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border)',
           }}>
             <p style={{ fontSize: 13, color: 'var(--text-2)' }}>
-              <strong style={{ fontFamily: 'var(--font-syne)', fontSize: 16, fontWeight: 700, color: 'var(--text-1)' }}>
-                {filteredAll.length}
-              </strong>
-              {' '}{filteredAll.length === 1 ? 'clinic' : 'clinics'} found
-              {totalPages > 1 && (
-                <span style={{ color: 'var(--text-3)', marginLeft: '0.5rem' }}>
-                  · page {page} of {totalPages}
-                </span>
+              {filteredAll.length === 0 ? (
+                'No clinics found'
+              ) : (
+                <>
+                  Showing{' '}
+                  <strong style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-1)' }}>
+                    {showFrom}–{showTo}
+                  </strong>
+                  {' '}of{' '}
+                  <strong style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-1)' }}>
+                    {filteredAll.length}
+                  </strong>
+                  {' '}{filteredAll.length === 1 ? 'clinic' : 'clinics'}
+                </>
               )}
             </p>
           </div>
@@ -229,7 +246,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
               borderTop: '1px solid var(--border)',
             }}>
               <button
-                onClick={() => { setPage(p => p - 1); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                onClick={() => { setPage(p => p - 1); scrollToResults() }}
                 disabled={page <= 1}
                 className="pagination-btn"
               >
@@ -239,7 +256,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
                 {page} <span style={{ color: 'var(--text-3)' }}>/ {totalPages}</span>
               </span>
               <button
-                onClick={() => { setPage(p => p + 1); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                onClick={() => { setPage(p => p + 1); scrollToResults() }}
                 disabled={page >= totalPages}
                 className="pagination-btn"
               >
