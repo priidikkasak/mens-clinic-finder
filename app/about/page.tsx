@@ -12,7 +12,7 @@ export default function AboutPage() {
 
       {/* Hero */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+        <div className="pg-w" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
           <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1rem' }}>About</p>
           <h1 style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 'clamp(2rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--text-1)', maxWidth: 560, marginBottom: '1.25rem' }}>
             Men deserve better healthcare information.
@@ -26,7 +26,7 @@ export default function AboutPage() {
 
       {/* Mission */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
+        <div className="pg-w" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.875rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>01</span>
             <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 20, color: 'var(--text-1)', letterSpacing: '-0.02em' }}>The problem we&apos;re solving</h2>
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
       {/* Values */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
+        <div className="pg-w" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.875rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>02</span>
             <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 20, color: 'var(--text-1)', letterSpacing: '-0.02em' }}>What we stand for</h2>
@@ -90,7 +90,7 @@ export default function AboutPage() {
 
       {/* Disclaimer */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+        <div className="pg-w" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.875rem', marginBottom: '1.5rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>03</span>
             <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 20, color: 'var(--text-1)', letterSpacing: '-0.02em' }}>Medical disclaimer</h2>
@@ -106,13 +106,13 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section>
-        <div className="pg" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
+        <div className="pg-w" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '2rem', alignItems: 'center' }}>
             <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 'clamp(1.4rem,2.5vw,1.75rem)', lineHeight: 1.1, letterSpacing: '-0.02em', color: 'var(--text-1)' }}>
               Ready to find the right clinic?
             </h2>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <Link href="/clinics" style={{
+              <Link href="/" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '0.75rem 1.5rem', borderRadius: 8,
                 background: 'var(--navy)', color: 'white',

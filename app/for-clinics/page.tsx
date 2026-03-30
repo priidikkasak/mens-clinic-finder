@@ -11,7 +11,7 @@ export default function ForClinicsPage() {
 
       {/* Hero */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+        <div className="pg-w" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
           <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1rem' }}>For clinic owners</p>
           <h1 style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 'clamp(2rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--text-1)', maxWidth: 560, marginBottom: '1.25rem' }}>
             Reach patients who are ready to act.
@@ -37,7 +37,7 @@ export default function ForClinicsPage() {
 
       {/* Stats */}
       <section style={{ background: 'var(--navy)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        <div className="pg">
+        <div className="pg-w">
           <div className="grid grid-cols-3" style={{ paddingTop: '2.5rem', paddingBottom: '2.5rem' }}>
             {[
               { n: '25+', l: 'Clinics listed' },
@@ -55,7 +55,7 @@ export default function ForClinicsPage() {
 
       {/* Why it works */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
+        <div className="pg-w" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.875rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>01</span>
             <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 20, color: 'var(--text-1)', letterSpacing: '-0.02em' }}>Why it works</h2>
@@ -78,7 +78,7 @@ export default function ForClinicsPage() {
 
       {/* How it works */}
       <section style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="pg" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
+        <div className="pg-w" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.875rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>02</span>
             <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 20, color: 'var(--text-1)', letterSpacing: '-0.02em' }}>How to get listed</h2>
@@ -102,7 +102,7 @@ export default function ForClinicsPage() {
 
       {/* CTA */}
       <section>
-        <div className="pg" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+        <div className="pg-w" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '2rem', alignItems: 'center' }}>
             <div>
               <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 'clamp(1.4rem,2.5vw,1.75rem)', lineHeight: 1.1, letterSpacing: '-0.02em', color: 'var(--text-1)', marginBottom: '0.5rem' }}>

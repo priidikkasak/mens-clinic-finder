@@ -899,7 +899,9 @@ input[type="range"]::-webkit-slider-thumb {
   gap: 2rem;
 }
 
-@media (min-width: 640px) { .nav-inner { padding: 0 2.5rem; } }
+@media (min-width: 640px)  { .nav-inner { padding: 0 2.5rem; } }
+@media (min-width: 1024px) { .nav-inner { padding: 0 4.5rem; } }
+@media (min-width: 1280px) { .nav-inner { padding: 0 6rem; } }
 
 .nav-logo {
   display: flex;

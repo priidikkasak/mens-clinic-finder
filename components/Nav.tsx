@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 const LINKS = [
-  { href: '/clinics', label: 'Browse clinics' },
   { href: '/about', label: 'About' },
   { href: '/for-clinics', label: 'For clinics' },
 ]
@@ -27,7 +26,7 @@ export default function Nav() {
 
         {/* Desktop nav */}
         <nav className="desktop-nav nav-links">
-          {LINKS.slice(0, 2).map((l) => {
+          {LINKS.map((l) => {
             const active = path.startsWith(l.href)
             return (
               <Link key={l.href} href={l.href} className={`nav-link${active ? ' nav-link--active' : ''}`}>
@@ -39,8 +38,8 @@ export default function Nav() {
 
         {/* Right */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}>
-          <Link href="/for-clinics" className="nav-for-clinics for-clinics-link">
-            For clinics
+          <Link href="/" className="nav-for-clinics for-clinics-link">
+            Browse clinics
           </Link>
 
           {/* Hamburger */}
@@ -61,6 +60,17 @@ export default function Nav() {
       {open && (
         <div className="mobile-menu nav-mobile">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <Link href="/" onClick={() => setOpen(false)} style={{
+              fontSize: 15, fontWeight: path === '/' ? 600 : 400,
+              color: path === '/' ? 'var(--text-1)' : 'var(--text-2)',
+              padding: '0.875rem 0',
+              borderBottom: '1px solid var(--border)',
+              textDecoration: 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            }}>
+              Browse clinics
+              {path === '/' && <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--gold)' }} />}
+            </Link>
             {LINKS.map((l) => {
               const active = path.startsWith(l.href)
               return (
