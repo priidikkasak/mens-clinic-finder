@@ -1277,3 +1277,46 @@ input[type="range"]::-webkit-slider-thumb {
 @media (max-width: 639px) {
   .nav-inner { padding: 0 1.25rem; }
 }
+
+/* ── Hero badge mobile ──────────────────────────────────────*/
+@media (max-width: 639px) {
+  .hero-badge {
+    font-size: 9px;
+    padding: 0.3125rem 0.75rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+}
+
+/* ── Clinic detail page mobile ──────────────────────────────*/
+@media (max-width: 1023px) {
+  .clinic-hdr-left {
+    padding-right: 0 !important;
+    border-right: none !important;
+    padding-bottom: 2rem !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .clinic-hdr-right {
+    padding-left: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 2rem !important;
+  }
+  .clinic-body-main {
+    padding-right: 0 !important;
+    border-right: none !important;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .clinic-body-sidebar {
+    padding-left: 0 !important;
+    padding-top: 2rem;
+  }
+  .clinic-body-sidebar > div {
+    position: static !important;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Clinic detail page: tighter section padding */
+  .pg { padding-left: 1.25rem; padding-right: 1.25rem; }
+}

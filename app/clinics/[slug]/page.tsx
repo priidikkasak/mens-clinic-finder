@@ -92,7 +92,7 @@ export default async function ClinicPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px]" style={{ gap: 0, borderBottom: '1px solid var(--border)' }}>
 
           {/* Left */}
-          <div style={{ padding: '2.5rem 0', paddingRight: '2.5rem', borderRight: '1px solid var(--border)' }}>
+          <div className="clinic-hdr-left" style={{ padding: '2.5rem 0', paddingRight: '2.5rem', borderRight: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: '1.25rem' }}>
               {clinic.verified && <VerifiedBadge />}
               {clinic.premium && (
@@ -120,7 +120,7 @@ export default async function ClinicPage({ params }: PageProps) {
           </div>
 
           {/* Right — price + CTA */}
-          <div style={{ padding: '2.5rem 0', paddingLeft: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div className="clinic-hdr-right" style={{ padding: '2.5rem 0', paddingLeft: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
             {clinic.price_min && (
               <div>
@@ -193,7 +193,7 @@ export default async function ClinicPage({ params }: PageProps) {
 
         {/* Body */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px]" style={{ gap: 0, paddingTop: '3rem', paddingBottom: '3rem' }}>
-          <div style={{ paddingRight: '3rem', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+          <div className="clinic-body-main" style={{ paddingRight: '3rem', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
 
             {clinic.description && (
               <section>
@@ -237,7 +237,7 @@ export default async function ClinicPage({ params }: PageProps) {
           </div>
 
           {/* Sidebar */}
-          <div style={{ paddingLeft: '2.5rem' }}>
+          <div className="clinic-body-sidebar" style={{ paddingLeft: '2.5rem' }}>
             <div style={{ position: 'sticky', top: 80, padding: '1.25rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10 }}>
               <p style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-3)', marginBottom: '0.75rem' }}>Important note</p>
               <p style={{ fontSize: 12, color: 'var(--text-2)', lineHeight: 1.65, marginBottom: '1rem' }}>
