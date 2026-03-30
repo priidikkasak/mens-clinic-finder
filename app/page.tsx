@@ -177,26 +177,47 @@ export default async function HomePage() {
               {/* Body scan area */}
               <div className="hdc-body-area">
                 <div className="hdc-body-glow" />
-                <div className="hdc-body-scan" />
-                <svg className="hdc-body-fig" viewBox="0 0 100 180" fill="none">
+                <svg className="hdc-body-fig" viewBox="0 0 100 200" fill="none">
+                  <defs>
+                    <radialGradient id="figFill" cx="50%" cy="35%" r="65%">
+                      <stop offset="0%" stopColor="rgba(201,160,87,0.18)"/>
+                      <stop offset="100%" stopColor="rgba(201,160,87,0.04)"/>
+                    </radialGradient>
+                  </defs>
                   {/* Head */}
-                  <circle cx="50" cy="13" r="11" stroke="#C9A057" strokeWidth="1.3"/>
-                  {/* Neck */}
-                  <path d="M44 24 L43 32 M56 24 L57 32" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round"/>
-                  {/* Torso */}
-                  <path d="M43 32 L28 36 L14 44 L16 60 L18 80 L22 100 L50 114 L78 100 L82 80 L84 60 L86 44 L72 36 L57 32" stroke="#C9A057" strokeWidth="1.3" strokeLinejoin="round" fill="rgba(201,160,87,0.05)"/>
+                  <ellipse cx="50" cy="15" rx="12" ry="13" stroke="#C9A057" strokeWidth="1.4" fill="url(#figFill)"/>
+                  {/* Body — smooth natural male silhouette */}
+                  <path
+                    stroke="#C9A057" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"
+                    fill="url(#figFill)"
+                    d="M43 27
+                       C36 28 20 34 12 48
+                       C6 60 10 76 14 86
+                       C17 93 19 100 20 108
+                       C20 114 20 120 22 127
+                       C22 136 20 148 16 182
+                       L28 182
+                       C30 164 34 146 36 130
+                       C38 120 42 114 50 112
+                       C58 114 62 120 64 130
+                       C66 146 70 164 72 182
+                       L84 182
+                       C80 148 78 136 78 127
+                       C80 120 80 114 80 108
+                       C81 100 83 93 86 86
+                       C90 76 94 60 88 48
+                       C80 34 64 28 57 27
+                       Z"
+                  />
                   {/* Left arm */}
-                  <path d="M14 44 L8 76 L12 96" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path stroke="#C9A057" strokeWidth="1.4" strokeLinecap="round" fill="url(#figFill)"
+                    d="M12 48 C6 62 4 80 6 96 C8 106 12 112 18 116 L20 108"/>
                   {/* Right arm */}
-                  <path d="M86 44 L92 76 L88 96" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                  {/* Left leg */}
-                  <path d="M22 100 L18 168" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round"/>
-                  {/* Right leg */}
-                  <path d="M78 100 L82 168" stroke="#C9A057" strokeWidth="1.3" strokeLinecap="round"/>
-                  {/* Chest detail */}
-                  <path d="M28 48 Q50 60 72 48" stroke="#C9A057" strokeWidth="0.7" strokeLinecap="round" opacity="0.4" fill="none"/>
-                  {/* Centre line */}
-                  <line x1="50" y1="34" x2="50" y2="108" stroke="#C9A057" strokeWidth="0.6" strokeDasharray="3 4" opacity="0.25"/>
+                  <path stroke="#C9A057" strokeWidth="1.4" strokeLinecap="round" fill="url(#figFill)"
+                    d="M88 48 C94 62 96 80 94 96 C92 106 88 112 82 116 L80 108"/>
+                  {/* Health pulse — heart area */}
+                  <circle cx="50" cy="65" r="3.5" fill="#16a34a" className="hdc-health-dot"/>
+                  <circle cx="50" cy="65" r="3.5" fill="none" stroke="#16a34a" strokeWidth="1.2" className="hdc-health-ring"/>
                 </svg>
                 {/* Metric bars */}
                 <div className="hdc-body-bars">
