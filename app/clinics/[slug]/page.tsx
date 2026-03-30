@@ -7,6 +7,7 @@ import { MOCK_CLINICS } from '@/lib/mock-clinics'
 import { getCategoryLabel, getCategoryDescription, formatPriceRange, countryFlag } from '@/lib/utils'
 import VerifiedBadge from '@/components/VerifiedBadge'
 import ClinicCard from '@/components/ClinicCard'
+import ScrollToTop from '@/components/ScrollToTop'
 
 export const revalidate = 86400
 
@@ -77,6 +78,7 @@ export default async function ClinicPage({ params }: PageProps) {
 
   return (
     <>
+      <ScrollToTop />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="pg">

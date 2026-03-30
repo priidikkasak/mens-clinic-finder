@@ -79,6 +79,15 @@ body {
   background: linear-gradient(150deg, #ffffff 0%, #faf8f3 45%, #f3ede0 100%);
   overflow: hidden;
 }
+.hero-v2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(158, 120, 64, 0.065) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
 
 .hero-glow {
   position: absolute;
@@ -97,6 +106,13 @@ body {
   padding-top: 5rem;
   padding-bottom: 4.5rem;
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (min-width: 1100px) {
+  .hero-inner { grid-template-columns: 1fr 320px; gap: 5rem; }
 }
 
 .hero-badge {
@@ -276,9 +292,22 @@ body {
 
 a:hover .clinic-card,
 .card-link:hover .clinic-card {
-  border-color: rgba(12, 28, 46, 0.14);
-  box-shadow: 0 4px 20px rgba(12, 28, 46, 0.1), 0 1px 4px rgba(12, 28, 46, 0.06);
-  transform: translateY(-2px);
+  border-color: rgba(12, 28, 46, 0.12);
+  box-shadow: 0 8px 32px rgba(12, 28, 46, 0.11), 0 2px 8px rgba(12, 28, 46, 0.06);
+  transform: translateY(-3px);
+}
+
+.card-view-arrow {
+  font-size: 14px;
+  color: var(--border-strong);
+  transition: color 0.18s, transform 0.18s;
+  display: block;
+  line-height: 1;
+}
+a:hover .card-view-arrow,
+.card-link:hover .card-view-arrow {
+  color: var(--navy);
+  transform: translate(2px, -2px);
 }
 
 .card-top {
@@ -638,11 +667,13 @@ a:hover .clinic-card,
 }
 
 .manifesto-n {
-  font-family: var(--font-geist-mono);
-  font-size: 9.5px;
-  color: rgba(255, 255, 255, 0.22);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 3.5rem;
+  color: rgba(255, 255, 255, 0.07);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: -0.5rem;
 }
 
 
@@ -862,8 +893,17 @@ input[type="range"]::-webkit-slider-thumb {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: transparent;
+  background: var(--bg);
   height: 60px;
+  border-bottom: 1px solid transparent;
+  transition: background 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.site-header--scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: var(--border);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
 }
 
 .nav-inner {
@@ -1315,3 +1355,186 @@ input[type="range"]::-webkit-slider-thumb {
   /* Clinic detail page: tighter section padding */
   .pg { padding-left: 1.25rem; padding-right: 1.25rem; }
 }
+
+/* ── Hero decoration ────────────────────────────────────────*/
+.hero-deco {
+  display: none;
+  position: relative;
+  height: 360px;
+}
+@media (min-width: 1100px) {
+  .hero-deco { display: block; }
+}
+
+.hdc-stack {
+  position: absolute;
+  width: 272px;
+  height: 210px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  top: 10px;
+  left: 0;
+}
+.hdc-stack--2 {
+  transform: rotate(5deg) translateX(14px);
+  opacity: 0.32;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+}
+.hdc-stack--3 {
+  transform: rotate(10deg) translateX(22px);
+  opacity: 0.12;
+}
+
+.hdc-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 272px;
+  background: white;
+  border: 1px solid rgba(12, 28, 46, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow:
+    0 12px 48px rgba(12, 28, 46, 0.13),
+    0 2px 8px rgba(12, 28, 46, 0.06),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  animation: hdc-float 5s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+@keyframes hdc-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hdc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.hdc-cat {
+  font-size: 9px;
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  background: var(--surface);
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+.hdc-prem {
+  font-size: 9px;
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+.hdc-card-name {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text-1);
+  margin-bottom: 7px;
+}
+.hdc-card-city {
+  font-size: 11.5px;
+  color: var(--text-3);
+  margin-bottom: 7px;
+}
+.hdc-card-desc {
+  font-size: 11.5px;
+  color: var(--text-2);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.hdc-card-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin-top: auto;
+}
+.hdc-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 5px;
+}
+.hdc-rating-n {
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-left: 3px;
+}
+.hdc-rating-ct {
+  font-size: 10px;
+  color: var(--text-3);
+}
+.hdc-verified {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--green);
+}
+.hdc-price { text-align: right; }
+.hdc-price-n {
+  display: block;
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-1);
+  letter-spacing: -0.025em;
+}
+.hdc-price-lbl {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  margin-top: 3px;
+}
+
+.hdc-float-chip {
+  position: absolute;
+  bottom: 20px;
+  right: -40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  background: var(--navy);
+  color: white;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-family: var(--font-geist-mono);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 20px rgba(12, 28, 46, 0.28);
+  animation: hdc-float 5s ease-in-out infinite;
+  animation-delay: 1.2s;
+  white-space: nowrap;
+}
+.hdc-float-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+  flex-shrink: 0;
+  animation: dot-pulse 2.5s ease-in-out infinite;
+}
+

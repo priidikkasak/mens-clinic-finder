@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const LINKS = [
   { href: '/about', label: 'About' },
@@ -12,9 +12,17 @@ const LINKS = [
 export default function Nav() {
   const path = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', handler, { passive: true })
+    handler()
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
 
   return (
-    <header className="site-header">
+    <header className={`site-header${scrolled ? ' site-header--scrolled' : ''}`}>
       <div className="nav-inner">
 
         {/* Logo */}

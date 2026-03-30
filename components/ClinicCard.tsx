@@ -16,7 +16,10 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
             {primaryCat ? getCategoryLabel(primaryCat as Category) : 'Clinic'}
             {extraCats > 0 && <span style={{ opacity: 0.6 }}> +{extraCats}</span>}
           </span>
-          {clinic.premium && <span className="card-premium-badge">Premium ↗</span>}
+          {clinic.premium
+            ? <span className="card-premium-badge">Premium ↗</span>
+            : <span className="card-view-arrow">→</span>
+          }
         </div>
 
         {/* Name */}
