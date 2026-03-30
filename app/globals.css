@@ -862,10 +862,7 @@ input[type="range"]::-webkit-slider-thumb {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
+  background: transparent;
   height: 60px;
 }
 
@@ -982,13 +979,11 @@ input[type="range"]::-webkit-slider-thumb {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  border: 1.5px solid var(--border);
-  background: white;
+  border: none;
+  background: none;
   cursor: pointer;
   color: var(--text-1);
-  transition: border-color 0.12s;
 }
-.nav-hamburger:hover { border-color: var(--border-strong); }
 
 .nav-mobile {
   border-top: 1px solid var(--border);

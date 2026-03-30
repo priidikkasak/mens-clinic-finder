@@ -244,7 +244,7 @@ export default async function ClinicPage({ params }: PageProps) {
                 This directory is for informational purposes only. We do not provide medical advice. Verify credentials directly with the clinic before any procedure.
               </p>
               <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
-                <Link href="/" style={{ fontSize: 12, fontWeight: 600, color: 'var(--navy)', textDecoration: 'none' }}>
+                <Link href="/#directory" style={{ fontSize: 12, fontWeight: 600, color: 'var(--navy)', textDecoration: 'none' }}>
                   ← Back to all clinics
                 </Link>
               </div>
