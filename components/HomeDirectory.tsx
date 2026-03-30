@@ -13,7 +13,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
   const [verifiedOnly, setVerifiedOnly] = useState(false)
   const [priceMax, setPriceMax] = useState(5000)
   const [page, setPage] = useState(1)
-  const resultsRef = useRef<HTMLDivElement>(null)
+  const scrollAfterRender = useRef(false)
 
   const countries = useMemo(() =>
     [...new Set(clinics.map(c => c.country))].sort(),
@@ -32,6 +32,14 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
 
   useEffect(() => { setPage(1) }, [filteredAll])
 
+  // Scroll to directory top AFTER the new page has rendered
+  useEffect(() => {
+    if (!scrollAfterRender.current) return
+    scrollAfterRender.current = false
+    const section = document.getElementById('directory')
+    if (section) window.scrollTo({ top: Math.max(0, section.offsetTop - 68), behavior: 'smooth' })
+  }, [page])
+
   const totalPages = Math.ceil(filteredAll.length / PAGE_SIZE)
   const paginated = filteredAll.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
   const showFrom = filteredAll.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1
@@ -43,14 +51,13 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
     setVerifiedOnly(false); setPriceMax(5000)
   }
 
-  function scrollToResults() {
-    if (!resultsRef.current) return
-    const top = resultsRef.current.getBoundingClientRect().top + window.scrollY - 68
-    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+  function goToPage(n: number) {
+    scrollAfterRender.current = true
+    setPage(n)
   }
 
   return (
-    <div className="pg-w" ref={resultsRef}>
+    <div className="pg-w">
       <div style={{ paddingTop: '3rem' }}>
 
         {/* ── Clear filter strip — fixed height so layout never jumps ── */}
@@ -205,7 +212,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
                 borderTop: '1px solid var(--border)',
               }}>
                 <button
-                  onClick={() => { setPage(p => p - 1); scrollToResults() }}
+                  onClick={() => goToPage(page - 1)}
                   disabled={page <= 1}
                   className="pagination-btn"
                 >
@@ -215,7 +222,7 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
                   {page} <span style={{ color: 'var(--text-3)' }}>/ {totalPages}</span>
                 </span>
                 <button
-                  onClick={() => { setPage(p => p + 1); scrollToResults() }}
+                  onClick={() => goToPage(page + 1)}
                   disabled={page >= totalPages}
                   className="pagination-btn"
                 >
