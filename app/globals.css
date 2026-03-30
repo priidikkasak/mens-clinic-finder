@@ -72,7 +72,7 @@ body {
 /* ── Hero v2 ────────────────────────────────────────────────*/
 .hero-v2 {
   position: relative;
-  min-height: calc(88dvh - 56px);
+  min-height: calc(88dvh - 60px);
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--border);
