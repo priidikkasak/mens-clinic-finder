@@ -261,37 +261,38 @@ body {
 .clinic-card {
   background: white;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.75rem;
+  border-radius: 12px;
+  padding: 1.625rem;
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 240px;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
 }
 
-.clinic-card::after {
+.clinic-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 2px;
+  bottom: 0;
+  width: 3px;
   background: transparent;
-  transition: background 0.2s;
+  transition: background 0.18s;
 }
 
-.clinic-card--premium::after {
+.clinic-card--premium::before {
   background: var(--gold);
 }
 
 a:hover .clinic-card,
 .card-link:hover .clinic-card {
-  border-color: var(--border-strong);
-  box-shadow: 0 8px 32px rgba(12, 28, 46, 0.1), 0 2px 8px rgba(12, 28, 46, 0.06);
-  transform: translateY(-3px);
+  border-color: rgba(12, 28, 46, 0.14);
+  box-shadow: 0 4px 20px rgba(12, 28, 46, 0.1), 0 1px 4px rgba(12, 28, 46, 0.06);
+  transform: translateY(-2px);
 }
 
 .card-top {
@@ -326,11 +327,11 @@ a:hover .clinic-card,
 
 .card-name {
   font-family: var(--font-syne);
-  font-weight: 800;
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 17px;
   color: var(--text-1);
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   margin-bottom: 0.375rem;
 }
 
@@ -610,8 +611,8 @@ a:hover .clinic-card,
 }
 
 .manifesto-inner {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
 }
 
 .manifesto-eyebrow {
@@ -658,12 +659,6 @@ a:hover .clinic-card,
   letter-spacing: 0.15em;
 }
 
-.manifesto-rule {
-  width: 24px;
-  height: 1.5px;
-  background: var(--gold);
-  border-radius: 1px;
-}
 
 .manifesto-title {
   font-family: var(--font-syne);
@@ -676,7 +671,7 @@ a:hover .clinic-card,
 
 .manifesto-body {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.48);
   line-height: 1.75;
 }
 
@@ -826,7 +821,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .filter-group-label {
   display: block;
-  font-size: 9px;
+  font-size: 9.5px;
   font-family: var(--font-geist-mono);
   font-weight: 700;
   text-transform: uppercase;
@@ -1029,7 +1024,6 @@ input[type="range"]::-webkit-slider-thumb {
 .footer-slogan-strip {
   padding-bottom: 3rem;
   margin-bottom: 3rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .footer-slogan {

@@ -148,7 +148,6 @@ export default async function HomePage() {
                 <path d="M2.5 6.5h8M6.5 3l3.5 3.5L6.5 10"/>
               </svg>
             </Link>
-            <p className="cta-note">Contact us to get started</p>
           </div>
         </div>
       </section>
