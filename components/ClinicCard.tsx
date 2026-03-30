@@ -7,45 +7,40 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
   const extraCats = clinic.categories.length - 1
 
   return (
-    <Link href={`/clinics/${clinic.slug}`} style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
-      <article className="clinic-card">
+    <Link href={`/clinics/${clinic.slug}`} className="card-link" style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
+      <article className={`clinic-card${clinic.premium ? ' clinic-card--premium' : ''}`}>
 
-        {/* Category eyebrow */}
-        <p style={{
-          fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700,
-          textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-3)',
-          marginBottom: '1.25rem',
-        }}>
-          {primaryCat ? getCategoryLabel(primaryCat as Category) : 'Clinic'}
-          {extraCats > 0 && <span style={{ opacity: 0.6 }}> +{extraCats}</span>}
-        </p>
+        {/* Top row */}
+        <div className="card-top">
+          <span className="card-cat-chip">
+            {primaryCat ? getCategoryLabel(primaryCat as Category) : 'Clinic'}
+            {extraCats > 0 && <span style={{ opacity: 0.6 }}> +{extraCats}</span>}
+          </span>
+          {clinic.premium && <span className="card-premium-badge">Premium</span>}
+        </div>
 
         {/* Name */}
-        <h3 style={{
-          fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 20,
-          color: 'var(--text-1)', lineHeight: 1.15, letterSpacing: '-0.03em',
-          marginBottom: '0.5rem',
-        }}>
-          {clinic.name}
-        </h3>
+        <h3 className="card-name">{clinic.name}</h3>
 
         {/* Location */}
-        <p style={{ fontSize: 12, color: 'var(--text-3)', lineHeight: 1 }}>
+        <p className="card-location">
           {countryFlag(clinic.country)} {clinic.city} · {clinic.country}
         </p>
 
-        {/* Spacer */}
-        <div style={{ flex: 1, minHeight: '2rem' }} />
+        {/* Description */}
+        {clinic.description && (
+          <p className="card-description">{clinic.description}</p>
+        )}
 
-        {/* Bottom */}
-        <div style={{
-          display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1rem',
-          paddingTop: '1.25rem', borderTop: '1px solid var(--border)',
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {/* Spacer */}
+        <div style={{ flex: 1, minHeight: '1rem' }} />
+
+        {/* Footer */}
+        <div className="card-footer">
+          <div className="card-meta">
             {clinic.rating != null ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <div style={{ display: 'flex', gap: 2 }}>
+              <div className="card-rating">
+                <div className="card-stars">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <svg key={s} width="10" height="10" viewBox="0 0 10 10"
                       fill={s <= Math.round(clinic.rating!) ? '#C9A057' : 'var(--border)'}>
@@ -53,21 +48,16 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
                     </svg>
                   ))}
                 </div>
-                <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 12, fontWeight: 700, color: 'var(--text-1)' }}>
-                  {clinic.rating.toFixed(1)}
-                </span>
-                <span style={{ fontSize: 10, color: 'var(--text-3)' }}>({clinic.review_count})</span>
+                <span className="card-rating-n">{clinic.rating.toFixed(1)}</span>
+                <span className="card-rating-ct">({clinic.review_count})</span>
               </div>
             ) : (
-              <span style={{ fontSize: 11, color: 'var(--text-3)' }}>No reviews</span>
+              <span className="card-no-reviews">No reviews yet</span>
             )}
+
             {clinic.verified && (
-              <span style={{
-                fontSize: 9, fontFamily: 'var(--font-geist-mono)', fontWeight: 700,
-                textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--green)',
-                display: 'flex', alignItems: 'center', gap: 4,
-              }}>
-                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <span className="card-verified">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M1.5 4l1.75 1.75L6.5 2"/>
                 </svg>
                 Verified
@@ -76,17 +66,19 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
           </div>
 
           {clinic.price_min != null && (
-            <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <p style={{
-                fontFamily: 'var(--font-geist-mono)', fontWeight: 700, fontSize: 18,
-                color: 'var(--text-1)', lineHeight: 1, letterSpacing: '-0.02em',
-              }}>
-                €{clinic.price_min.toLocaleString()}
-              </p>
-              <p style={{ fontSize: 9, color: 'var(--text-3)', marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.1em' }}>from</p>
+            <div className="card-price">
+              <span className="card-price-n">€{clinic.price_min.toLocaleString()}</span>
+              <span className="card-price-label">from</span>
             </div>
           )}
         </div>
+
+        {/* Hover arrow */}
+        <span className="card-arrow" aria-hidden="true">
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2.5 11.5l9-9M11.5 3.5H5M11.5 3.5v6.5"/>
+          </svg>
+        </span>
 
       </article>
     </Link>

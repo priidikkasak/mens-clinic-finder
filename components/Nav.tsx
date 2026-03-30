@@ -17,8 +17,9 @@ export default function Nav() {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(255,255,255,0.96)',
-      backdropFilter: 'blur(8px)',
+      background: 'rgba(255,255,255,0.95)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
       borderBottom: '1px solid var(--border)',
       height: 56,
     }}>
@@ -32,11 +33,14 @@ export default function Nav() {
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
           <span style={{
-            fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 16,
-            letterSpacing: '-0.03em', color: 'var(--text-1)',
+            fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: 15,
+            letterSpacing: '-0.04em', color: 'var(--text-1)',
           }}>MCF</span>
-          <span style={{ width: 1, height: 16, background: 'var(--border)', display: 'block' }} />
-          <span style={{ fontSize: 11, color: 'var(--text-3)', letterSpacing: '0.04em', display: 'none' }}
+          <span style={{ width: 1, height: 14, background: 'var(--border)', display: 'block' }} />
+          <span style={{
+            fontSize: 11, color: 'var(--text-3)', letterSpacing: '0.05em',
+            fontFamily: 'var(--font-geist-mono)',
+          }}
             className="sm-show">Men&apos;s Health</span>
         </Link>
 
@@ -47,15 +51,15 @@ export default function Nav() {
             const active = path.startsWith(l.href)
             return (
               <Link key={l.href} href={l.href} style={{
-                fontSize: 13, fontWeight: 500,
-                padding: '0.4rem 0.75rem', borderRadius: 6,
+                fontSize: 13, fontWeight: active ? 600 : 500,
+                padding: '0.4rem 0.75rem', borderRadius: 7,
                 textDecoration: 'none',
                 color: active ? 'var(--text-1)' : 'var(--text-2)',
                 background: active ? 'var(--surface)' : 'transparent',
                 transition: 'color 0.12s, background 0.12s',
               }}
-              onMouseEnter={(e) => { if (!active) { (e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-1)'; (e.currentTarget as HTMLAnchorElement).style.background = 'var(--surface)' } }}
-              onMouseLeave={(e) => { if (!active) { (e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-2)'; (e.currentTarget as HTMLAnchorElement).style.background = 'transparent' } }}
+              onMouseEnter={(e) => { if (!active) { const el = e.currentTarget as HTMLAnchorElement; el.style.color = 'var(--text-1)'; el.style.background = 'var(--surface)' } }}
+              onMouseLeave={(e) => { if (!active) { const el = e.currentTarget as HTMLAnchorElement; el.style.color = 'var(--text-2)'; el.style.background = 'transparent' } }}
               >
                 {l.label}
               </Link>
@@ -64,15 +68,15 @@ export default function Nav() {
         </nav>
 
         {/* Right actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}>
           <Link href="/for-clinics" style={{
             fontSize: 12, color: 'var(--text-3)',
             textDecoration: 'none', fontWeight: 500,
             transition: 'color 0.12s',
           }}
-          className="for-clinics-link"
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-3)')}
+            className="for-clinics-link"
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-3)')}
           >
             For clinics
           </Link>
@@ -80,15 +84,15 @@ export default function Nav() {
           <Link href="/clinics" style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
             fontSize: 13, fontWeight: 700,
-            padding: '0.5rem 1.125rem', borderRadius: 7,
-            background: 'var(--grad-primary)', color: 'white',
+            padding: '0.5rem 1.125rem', borderRadius: 8,
+            background: 'var(--navy)', color: 'white',
             textDecoration: 'none',
-            boxShadow: '0 1px 8px rgba(12,28,46,0.2)',
-            transition: 'opacity 0.12s',
+            boxShadow: '0 1px 6px rgba(12,28,46,0.18)',
+            transition: 'transform 0.15s, box-shadow 0.15s',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.88')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-          className="cta-btn"
+            onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.transform = 'translateY(-1px)'; el.style.boxShadow = '0 3px 12px rgba(12,28,46,0.25)' }}
+            onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.transform = ''; el.style.boxShadow = '0 1px 6px rgba(12,28,46,0.18)' }}
+            className="cta-btn"
           >
             Find a clinic
           </Link>
@@ -96,18 +100,18 @@ export default function Nav() {
           {/* Hamburger */}
           <button
             onClick={() => setOpen(!open)}
-            aria-label="Menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: 36, height: 36, borderRadius: 7,
-              border: '1px solid var(--border)', background: 'white',
-              cursor: 'pointer',
+              width: 36, height: 36, borderRadius: 8,
+              border: '1.5px solid var(--border)', background: 'white',
+              cursor: 'pointer', transition: 'border-color 0.12s',
             }}
             className="hamburger"
           >
             {open
-              ? <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
-              : <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><line x1="2" y1="5" x2="14" y2="5"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="13" x2="14" y2="13"/></svg>
+              ? <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><line x1="3" y1="3" x2="12" y2="12"/><line x1="12" y1="3" x2="3" y2="12"/></svg>
+              : <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><line x1="2" y1="4.5" x2="13" y2="4.5"/><line x1="2" y1="8.5" x2="13" y2="8.5"/><line x1="2" y1="12.5" x2="13" y2="12.5"/></svg>
             }
           </button>
         </div>
@@ -117,10 +121,11 @@ export default function Nav() {
       {open && (
         <div style={{
           borderTop: '1px solid var(--border)',
-          background: 'white',
-          padding: '0.75rem 1.5rem 1.25rem',
+          background: 'rgba(255,255,255,0.98)',
+          backdropFilter: 'blur(12px)',
+          padding: '0.625rem 1.5rem 1.25rem',
         }}
-        className="mobile-menu">
+          className="mobile-menu">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.125rem' }}>
             {LINKS.map((l) => {
               const active = path.startsWith(l.href)
@@ -143,7 +148,7 @@ export default function Nav() {
             marginTop: '1rem',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
             padding: '0.75rem', borderRadius: 8,
-            background: 'var(--grad-primary)', color: 'white',
+            background: 'var(--navy)', color: 'white',
             fontSize: 14, fontWeight: 700, textDecoration: 'none',
           }}>
             Find a clinic
@@ -157,7 +162,7 @@ export default function Nav() {
       <style>{`
         @media (min-width: 640px) { .sm-show { display: block !important; } }
         @media (min-width: 768px) { .desktop-nav { display: flex !important; } .hamburger { display: none !important; } .for-clinics-link { display: block !important; } }
-        @media (max-width: 767px) { .desktop-nav { display: none !important; } .for-clinics-link { display: none !important; } .mobile-menu { display: block; } }
+        @media (max-width: 767px) { .desktop-nav { display: none !important; } .for-clinics-link { display: none !important; } }
         @media (min-width: 640px) { .cta-btn { display: inline-flex !important; } }
         @media (max-width: 639px) { .cta-btn { display: none !important; } }
       `}</style>
