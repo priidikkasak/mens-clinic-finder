@@ -16,7 +16,7 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
             {primaryCat ? getCategoryLabel(primaryCat as Category) : 'Clinic'}
             {extraCats > 0 && <span style={{ opacity: 0.6 }}> +{extraCats}</span>}
           </span>
-          {clinic.premium && <span className="card-premium-badge">Premium</span>}
+          {clinic.premium && <span className="card-premium-badge">Premium ↗</span>}
         </div>
 
         {/* Name */}
@@ -72,13 +72,6 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
             </div>
           )}
         </div>
-
-        {/* Hover arrow */}
-        <span className="card-arrow" aria-hidden="true">
-          <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2.5 11.5l9-9M11.5 3.5H5M11.5 3.5v6.5"/>
-          </svg>
-        </span>
 
       </article>
     </Link>
