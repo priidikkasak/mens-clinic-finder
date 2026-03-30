@@ -1360,175 +1360,164 @@ input[type="range"]::-webkit-slider-thumb {
 .hero-deco {
   display: none;
   position: relative;
-  height: 360px;
 }
 @media (min-width: 1100px) {
   .hero-deco { display: block; }
 }
 
-.hdc-stack {
-  position: absolute;
-  width: 272px;
-  height: 210px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  top: 10px;
-  left: 0;
-}
-.hdc-stack--2 {
-  transform: rotate(5deg) translateX(14px);
-  opacity: 0.32;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-}
-.hdc-stack--3 {
-  transform: rotate(10deg) translateX(22px);
-  opacity: 0.12;
+/* ECG card */
+.hdc-ecg-card {
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 24px 22px 20px;
+  color: white;
+  box-shadow:
+    0 20px 60px rgba(12, 28, 46, 0.22),
+    0 4px 16px rgba(12, 28, 46, 0.14);
+  animation: hdc-float 5s ease-in-out infinite;
 }
 
-.hdc-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 272px;
-  background: white;
-  border: 1px solid rgba(12, 28, 46, 0.08);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow:
-    0 12px 48px rgba(12, 28, 46, 0.13),
-    0 2px 8px rgba(12, 28, 46, 0.06),
-    inset 0 1px 0 rgba(255,255,255,0.9);
-  animation: hdc-float 5s ease-in-out infinite;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
 @keyframes hdc-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-.hdc-card-top {
+.hdc-ecg-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 14px;
-}
-.hdc-cat {
-  font-size: 9px;
-  font-family: var(--font-geist-mono);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-3);
-  background: var(--surface);
-  padding: 3px 7px;
-  border-radius: 4px;
-}
-.hdc-prem {
-  font-size: 9px;
-  font-family: var(--font-geist-mono);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--gold);
-}
-.hdc-card-name {
-  font-family: var(--font-syne);
-  font-weight: 800;
-  font-size: 19px;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  color: var(--text-1);
-  margin-bottom: 7px;
-}
-.hdc-card-city {
-  font-size: 11.5px;
-  color: var(--text-3);
-  margin-bottom: 7px;
-}
-.hdc-card-desc {
-  font-size: 11.5px;
-  color: var(--text-2);
-  line-height: 1.5;
-  margin-bottom: 14px;
-}
-.hdc-card-foot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  border-top: 1px solid var(--border);
-  padding-top: 14px;
-  margin-top: auto;
-}
-.hdc-stars {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-bottom: 5px;
-}
-.hdc-rating-n {
-  font-family: var(--font-geist-mono);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-1);
-  margin-left: 3px;
-}
-.hdc-rating-ct {
-  font-size: 10px;
-  color: var(--text-3);
-}
-.hdc-verified {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 9px;
-  font-family: var(--font-geist-mono);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--green);
-}
-.hdc-price { text-align: right; }
-.hdc-price-n {
-  display: block;
-  font-family: var(--font-geist-mono);
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1;
-  color: var(--text-1);
-  letter-spacing: -0.025em;
-}
-.hdc-price-lbl {
-  display: block;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-3);
-  margin-top: 3px;
+  margin-bottom: 18px;
 }
 
+.hdc-ecg-title {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 15px;
+  color: white;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.hdc-ecg-subtitle {
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.3);
+  font-family: var(--font-geist-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+
+.hdc-ecg-live {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.15em;
+  padding: 4px 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 9999px;
+}
+
+.hdc-ecg-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+  flex-shrink: 0;
+  animation: dot-pulse 2.5s ease-in-out infinite;
+}
+
+.hdc-ecg-track {
+  overflow: hidden;
+  height: 72px;
+  margin: 0 -4px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.hdc-ecg-svg {
+  width: 600px;
+  height: 72px;
+  display: block;
+  animation: ecg-scroll 2s linear infinite;
+}
+
+@keyframes ecg-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-200px); }
+}
+
+.hdc-ecg-path {
+  stroke: #C9A057;
+  stroke-width: 1.75;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(201, 160, 87, 0.55));
+}
+
+.hdc-ecg-metrics {
+  display: flex;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.hdc-ecg-metric {
+  flex: 1;
+  text-align: center;
+}
+
+.hdc-ecg-divider {
+  width: 1px;
+  height: 26px;
+  background: rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+
+.hdc-ecg-n {
+  display: block;
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: white;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hdc-ecg-l {
+  display: block;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  font-family: var(--font-geist-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 5px;
+}
+
+/* Floating chip below card */
 .hdc-float-chip {
-  position: absolute;
-  bottom: 20px;
-  right: -40px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  margin-top: 16px;
   padding: 7px 14px;
-  background: var(--navy);
-  color: white;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
   border-radius: 9999px;
   font-size: 10px;
   font-family: var(--font-geist-mono);
   font-weight: 600;
   letter-spacing: 0.02em;
-  box-shadow: 0 4px 20px rgba(12, 28, 46, 0.28);
+  white-space: nowrap;
   animation: hdc-float 5s ease-in-out infinite;
   animation-delay: 1.2s;
-  white-space: nowrap;
 }
+
 .hdc-float-dot {
   width: 6px;
   height: 6px;
@@ -1536,5 +1525,217 @@ input[type="range"]::-webkit-slider-thumb {
   background: #16a34a;
   flex-shrink: 0;
   animation: dot-pulse 2.5s ease-in-out infinite;
+}
+
+/* ── About / For-Clinics pages ───────────────────────────────*/
+.page-eyebrow {
+  font-family: var(--font-geist-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  margin-bottom: 1.25rem;
+}
+
+.page-title {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: var(--text-1);
+  margin-bottom: 1.25rem;
+}
+
+.page-lead {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 520px;
+}
+
+.about-hero {
+  border-bottom: 1px solid var(--border);
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.about-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-section--alt {
+  background: var(--surface);
+}
+
+/* About: mission grid */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+}
+@media (min-width: 900px) {
+  .about-grid { grid-template-columns: 1fr 200px; gap: 5rem; }
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+.about-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+}
+@media (min-width: 900px) {
+  .about-stats { flex-direction: column; gap: 2rem; }
+}
+
+.about-stat-n {
+  display: block;
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 2.25rem;
+  line-height: 1;
+  color: var(--text-1);
+  letter-spacing: -0.03em;
+}
+
+.about-stat-l {
+  display: block;
+  font-size: 10px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+/* Values grid */
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+@media (min-width: 640px) {
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.value-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.value-rule {
+  width: 28px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+}
+
+.value-title {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+.value-body {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+/* Disclaimer */
+.disclaimer-text {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-width: 620px;
+  margin-top: 1rem;
+}
+
+/* About CTA */
+.about-cta {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.about-cta-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.about-cta-title {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--text-1);
+}
+
+.about-cta-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* For Clinics: why grid */
+.fc-why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+@media (min-width: 768px) {
+  .fc-why-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* For Clinics: steps */
+.fc-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+@media (min-width: 768px) {
+  .fc-steps-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.fc-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.fc-step-n {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--border-strong);
+  letter-spacing: -0.03em;
+}
+
+.fc-step-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-1);
 }
 

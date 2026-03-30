@@ -94,45 +94,47 @@ export default async function HomePage() {
 
           </div>
 
-          {/* Right — decorative floating card */}
+          {/* Right — ECG / health monitoring decoration */}
           <div className="hero-deco" aria-hidden="true">
-            <div className="hdc-stack hdc-stack--3" />
-            <div className="hdc-stack hdc-stack--2" />
-            <div className="hdc-card">
-              <div className="hdc-card-top">
-                <span className="hdc-cat">Hair Transplant</span>
-                <span className="hdc-prem">Premium ↗</span>
-              </div>
-              <div className="hdc-card-name">Nordic Hair<br />Institute</div>
-              <div className="hdc-card-city">🇸🇪 Stockholm, Sweden</div>
-              <div className="hdc-card-desc">FUE &amp; DHI specialists since 2009.</div>
-              <div className="hdc-card-foot">
+            <div className="hdc-ecg-card">
+              {/* Header */}
+              <div className="hdc-ecg-header">
                 <div>
-                  <div className="hdc-stars">
-                    {[1,2,3,4,5].map(s => (
-                      <svg key={s} width="10" height="10" viewBox="0 0 10 10" fill="#C9A057">
-                        <path d="M5 0.5l1.05 2.13 2.45.47-1.75 1.71.41 2.41L5 6.17 2.84 7.22l.41-2.41L1.5 3.1l2.45-.47L5 .5z"/>
-                      </svg>
-                    ))}
-                    <span className="hdc-rating-n">4.9</span>
-                    <span className="hdc-rating-ct">(127)</span>
-                  </div>
-                  <div className="hdc-verified">
-                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M1.5 4l1.75 1.75L6.5 2"/>
-                    </svg>
-                    Verified
-                  </div>
+                  <div className="hdc-ecg-title">Health Monitoring</div>
+                  <div className="hdc-ecg-subtitle">Men&apos;s Clinic Directory</div>
                 </div>
-                <div className="hdc-price">
-                  <span className="hdc-price-n">€2,800</span>
-                  <span className="hdc-price-lbl">from</span>
+                <div className="hdc-ecg-live">
+                  <span className="hdc-ecg-dot" />
+                  LIVE
+                </div>
+              </div>
+              {/* ECG wave track */}
+              <div className="hdc-ecg-track">
+                <svg className="hdc-ecg-svg" viewBox="0 0 600 80" preserveAspectRatio="none">
+                  <path className="hdc-ecg-path" d="M 0,52 L 15,52 Q 22,52 25,44 Q 30,36 35,44 Q 40,52 45,52 L 49,52 L 51,62 L 56,7 L 61,62 L 65,52 L 82,52 Q 92,52 98,37 Q 110,20 117,37 Q 124,52 142,52 L 200,52 L 215,52 Q 222,52 225,44 Q 230,36 235,44 Q 240,52 245,52 L 249,52 L 251,62 L 256,7 L 261,62 L 265,52 L 282,52 Q 292,52 298,37 Q 310,20 317,37 Q 324,52 342,52 L 400,52 L 415,52 Q 422,52 425,44 Q 430,36 435,44 Q 440,52 445,52 L 449,52 L 451,62 L 456,7 L 461,62 L 465,52 L 482,52 Q 492,52 498,37 Q 510,20 517,37 Q 524,52 542,52 L 600,52" />
+                </svg>
+              </div>
+              {/* Metrics */}
+              <div className="hdc-ecg-metrics">
+                <div className="hdc-ecg-metric">
+                  <span className="hdc-ecg-n">4.9★</span>
+                  <span className="hdc-ecg-l">Avg Rating</span>
+                </div>
+                <div className="hdc-ecg-divider" />
+                <div className="hdc-ecg-metric">
+                  <span className="hdc-ecg-n">{total}</span>
+                  <span className="hdc-ecg-l">Clinics</span>
+                </div>
+                <div className="hdc-ecg-divider" />
+                <div className="hdc-ecg-metric">
+                  <span className="hdc-ecg-n">100%</span>
+                  <span className="hdc-ecg-l">Private</span>
                 </div>
               </div>
             </div>
             <div className="hdc-float-chip">
               <span className="hdc-float-dot" />
-              {total} clinics · {countries} countries
+              {countries} countries covered
             </div>
           </div>
 
