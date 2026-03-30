@@ -30,7 +30,7 @@ export default function ForClinicsPage() {
       </section>
 
       {/* Why it works */}
-      <section className="about-section">
+      <section className="about-section about-section--alt">
         <div className="pg-w">
           <p className="page-eyebrow">Why it works</p>
           <div className="fc-why-grid">

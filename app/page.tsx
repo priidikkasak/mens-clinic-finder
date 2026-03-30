@@ -30,6 +30,72 @@ async function getData() {
   }
 }
 
+const SPECS = [
+  {
+    cat: 'trt',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 16V8M9.5 10.5l2.5-2.5 2.5 2.5"/>
+      </svg>
+    ),
+    label: 'Testosterone Therapy',
+    desc: 'Low T, fatigue and hormonal decline. TRT clinics offering blood panels, optimised protocols and ongoing monitoring.',
+    tags: ['TRT', 'Hormone panels', 'Peptides', 'DHEA'],
+  },
+  {
+    cat: 'fertility',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="12" cy="5" r="2.5"/>
+        <circle cx="6.5" cy="17" r="2.5"/>
+        <circle cx="17.5" cy="17" r="2.5"/>
+        <line x1="12" y1="7.5" x2="8" y2="14.5"/>
+        <line x1="12" y1="7.5" x2="16" y2="14.5"/>
+      </svg>
+    ),
+    label: 'Male Fertility',
+    desc: 'From sperm analysis to varicocele repair. Evidence-based clinics specialising in male factor infertility and fertility optimisation.',
+    tags: ['Sperm analysis', 'Varicocele', 'IVF prep', 'DNA frag'],
+  },
+  {
+    cat: 'ed',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M13 3L6 14h6l-1 7 9-11h-6l1-7z"/>
+      </svg>
+    ),
+    label: 'Erectile Dysfunction',
+    desc: 'Shockwave therapy, P-shot and medical protocols with lasting results. No awkward consultations — just clinical, effective care.',
+    tags: ['Shockwave', 'P-shot', 'Vacuum', 'PDE5'],
+  },
+  {
+    cat: 'pe',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="5"/>
+        <circle cx="12" cy="12" r="1.5" fill="currentColor" strokeWidth="0"/>
+      </svg>
+    ),
+    label: 'Premature Ejaculation',
+    desc: 'Clinical, lasting solutions. Nerve block procedures and tailored medical therapy — verified specialists, real results.',
+    tags: ['Nerve block', 'Topical', 'SSRI protocol'],
+  },
+  {
+    cat: 'penis_filler',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 8v8M8 12h8"/>
+      </svg>
+    ),
+    label: 'Penile Enhancement',
+    desc: 'HA fillers, fat transfer and girth procedures from licensed specialists. Transparent pricing, verified qualifications.',
+    tags: ['HA filler', 'Fat transfer', 'Girth', 'Length'],
+  },
+]
+
 export default async function HomePage() {
   const { clinics, total, countries } = await getData()
 
@@ -58,8 +124,9 @@ export default async function HomePage() {
 
             {/* Subline */}
             <p className="hero-body">
-              Verified men&apos;s health clinics across Europe and worldwide.
-              Transparent pricing. Private, professional care.
+              TRT, male fertility, ED treatment and discreet enhancement —
+              from verified specialists across Europe and worldwide.
+              Real prices, no hidden fees.
             </p>
 
             {/* CTAs */}
@@ -83,7 +150,7 @@ export default async function HomePage() {
               {[
                 { n: String(total), l: 'Clinics' },
                 { n: String(countries), l: 'Countries' },
-                { n: '5', l: 'Specialisations' },
+                { n: '5', l: 'Treatment areas' },
               ].map((s) => (
                 <div key={s.l} className="hero-stat">
                   <span className="hero-stat-num">{s.n}</span>
@@ -97,7 +164,6 @@ export default async function HomePage() {
           {/* Right — ECG / health monitoring decoration */}
           <div className="hero-deco" aria-hidden="true">
             <div className="hdc-ecg-card">
-              {/* Header */}
               <div className="hdc-ecg-header">
                 <div>
                   <div className="hdc-ecg-title">Health Monitoring</div>
@@ -108,13 +174,11 @@ export default async function HomePage() {
                   LIVE
                 </div>
               </div>
-              {/* ECG wave track */}
               <div className="hdc-ecg-track">
                 <svg className="hdc-ecg-svg" viewBox="0 0 600 80" preserveAspectRatio="none">
                   <path className="hdc-ecg-path" d="M 0,52 L 15,52 Q 22,52 25,44 Q 30,36 35,44 Q 40,52 45,52 L 49,52 L 51,62 L 56,7 L 61,62 L 65,52 L 82,52 Q 92,52 98,37 Q 110,20 117,37 Q 124,52 142,52 L 200,52 L 215,52 Q 222,52 225,44 Q 230,36 235,44 Q 240,52 245,52 L 249,52 L 251,62 L 256,7 L 261,62 L 265,52 L 282,52 Q 292,52 298,37 Q 310,20 317,37 Q 324,52 342,52 L 400,52 L 415,52 Q 422,52 425,44 Q 430,36 435,44 Q 440,52 445,52 L 449,52 L 451,62 L 456,7 L 461,62 L 465,52 L 482,52 Q 492,52 498,37 Q 510,20 517,37 Q 524,52 542,52 L 600,52" />
                 </svg>
               </div>
-              {/* Metrics */}
               <div className="hdc-ecg-metrics">
                 <div className="hdc-ecg-metric">
                   <span className="hdc-ecg-n">4.9★</span>
@@ -141,6 +205,28 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── SPECIALISATIONS ──────────────────────────────────── */}
+      <section className="spec-section">
+        <div className="pg-w">
+          <div className="spec-header">
+            <p className="spec-eyebrow">What we cover</p>
+            <h2 className="spec-title-h2">Five specialist areas.<br className="spec-br" />One trusted directory.</h2>
+          </div>
+          <div className="spec-grid">
+            {SPECS.map((s) => (
+              <div key={s.cat} className="spec-card">
+                <div className="spec-icon">{s.icon}</div>
+                <h3 className="spec-name">{s.label}</h3>
+                <p className="spec-desc">{s.desc}</p>
+                <div className="spec-tags">
+                  {s.tags.map(t => <span key={t} className="spec-tag">{t}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FULL DIRECTORY ──────────────────────────────────── */}
       <section id="directory">
         <HomeDirectory clinics={clinics} />
@@ -154,18 +240,18 @@ export default async function HomePage() {
             {[
               {
                 n: '01',
-                title: 'Honest pricing',
-                body: '"Call for a quote" is a red flag. We require real price ranges from every listed clinic.',
+                title: 'Real prices, upfront',
+                body: 'TRT and fertility clinics notoriously hide costs. Every listing on MCF must publish actual price ranges — no "call for a quote" gatekeeping.',
               },
               {
                 n: '02',
-                title: 'Verified credentials',
-                body: 'Our verified badge means confirmed licensing, medical standards and real patient feedback.',
+                title: 'Verified specialists',
+                body: 'Our verified badge means confirmed medical licensing for the procedures listed — not self-reported claims. Testosterone and fertility care require qualified hands.',
               },
               {
                 n: '03',
-                title: 'Complete privacy',
-                body: "No account required. We don't log searches or sell data. Your health journey is yours.",
+                title: 'Zero-trace privacy',
+                body: "Sensitive treatments deserve absolute discretion. No account, no tracking, no ad targeting. What you search stays private — always.",
               },
             ].map((p, i) => (
               <div key={p.n} className={`manifesto-pillar${i > 0 ? ' has-border' : ''}`}>
@@ -186,7 +272,7 @@ export default async function HomePage() {
             <p className="cta-eyebrow">For clinic owners</p>
             <h2 className="cta-title">Reach patients who are ready to act.</h2>
             <p className="cta-body">
-              High-intent visitors already comparing clinics and pricing.
+              High-intent visitors researching TRT, fertility and specialist care.
               Get listed among verified providers and be found discreetly.
             </p>
           </div>

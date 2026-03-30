@@ -23,7 +23,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission + Stats */}
-      <section className="about-section">
+      <section className="about-section about-section--alt">
         <div className="pg-w about-grid">
           <div className="about-text">
             <p>
@@ -56,7 +56,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="about-section about-section--alt">
+      <section className="about-section">
         <div className="pg-w">
           <p className="page-eyebrow">What we stand for</p>
           <div className="values-grid">
@@ -89,7 +89,7 @@ export default function AboutPage() {
       </section>
 
       {/* Disclaimer */}
-      <section className="about-section">
+      <section className="about-section about-section--alt">
         <div className="pg-w">
           <p className="page-eyebrow">Medical disclaimer</p>
           <p className="disclaimer-text">

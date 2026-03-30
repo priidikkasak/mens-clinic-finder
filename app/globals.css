@@ -75,7 +75,6 @@ body {
   min-height: calc(88dvh - 60px);
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border);
   background: linear-gradient(150deg, #ffffff 0%, #faf8f3 45%, #f3ede0 100%);
   overflow: hidden;
 }
@@ -701,7 +700,7 @@ a:hover .card-view-arrow,
 
 /* ── For Clinics CTA section ────────────────────────────────*/
 .cta-section {
-  border-top: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .cta-inner {
@@ -1555,7 +1554,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .about-hero {
-  border-bottom: 1px solid var(--border);
+  background: var(--bg);
   padding-top: 4.5rem;
   padding-bottom: 4.5rem;
 }
@@ -1563,7 +1562,7 @@ input[type="range"]::-webkit-slider-thumb {
 .about-section {
   padding-top: 4rem;
   padding-bottom: 4rem;
-  border-bottom: 1px solid var(--border);
+  background: var(--bg);
 }
 
 .about-section--alt {
@@ -1737,5 +1736,116 @@ input[type="range"]::-webkit-slider-thumb {
   font-weight: 600;
   font-size: 14px;
   color: var(--text-1);
+}
+
+/* ── Specialisations section ─────────────────────────────────*/
+.spec-section {
+  background: var(--surface);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.spec-header {
+  margin-bottom: 2.5rem;
+}
+
+.spec-eyebrow {
+  font-family: var(--font-geist-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  margin-bottom: 0.875rem;
+}
+
+.spec-title-h2 {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-1);
+}
+
+.spec-br { display: none; }
+@media (min-width: 640px) { .spec-br { display: block; } }
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .spec-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1100px) {
+  .spec-grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+.spec-card {
+  background: var(--surface);
+  padding: 1.875rem 1.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: background 0.15s;
+}
+
+.spec-card:hover {
+  background: white;
+}
+
+.spec-icon {
+  color: var(--navy);
+  opacity: 0.65;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.spec-name {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.spec-desc {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.spec-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0.25rem;
+}
+
+.spec-tag {
+  font-size: 9px;
+  font-family: var(--font-geist-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.spec-card:hover .spec-tag {
+  background: var(--surface-3);
 }
 
