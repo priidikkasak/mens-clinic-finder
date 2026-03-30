@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
 const LINKS = [
+  { href: '/', label: 'Browse clinics' },
   { href: '/about', label: 'About' },
   { href: '/for-clinics', label: 'For clinics' },
 ]
@@ -38,7 +39,7 @@ export default function Nav() {
 
         {/* Desktop nav */}
         <nav className="desktop-nav nav-links">
-          {LINKS.map((l) => {
+          {LINKS.slice(1).map((l) => {
             const active = path.startsWith(l.href)
             return (
               <Link key={l.href} href={l.href} className={`nav-link${active ? ' nav-link--active' : ''}`}>
@@ -48,67 +49,48 @@ export default function Nav() {
           })}
         </nav>
 
-        {/* Right */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexShrink: 0 }}>
-          {/* Hamburger */}
-          <button
-            onClick={() => setOpen(!open)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            className="hamburger nav-hamburger"
-          >
-            {open
-              ? <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><line x1="3" y1="3" x2="12" y2="12"/><line x1="12" y1="3" x2="3" y2="12"/></svg>
-              : <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><line x1="2" y1="4.5" x2="13" y2="4.5"/><line x1="2" y1="8.5" x2="13" y2="8.5"/><line x1="2" y1="12.5" x2="13" y2="12.5"/></svg>
-            }
-          </button>
-        </div>
+        {/* Hamburger */}
+        <button
+          onClick={() => setOpen(!open)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          className="hamburger nav-hamburger"
+        >
+          {open
+            ? <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg>
+            : <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="2" y1="5.5" x2="18" y2="5.5"/><line x1="2" y1="10.5" x2="18" y2="10.5"/><line x1="2" y1="15.5" x2="18" y2="15.5"/></svg>
+          }
+        </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="mobile-menu nav-mobile">
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Link href="/" onClick={() => setOpen(false)} style={{
-              fontSize: 15, fontWeight: path === '/' ? 600 : 400,
-              color: path === '/' ? 'var(--text-1)' : 'var(--text-2)',
-              padding: '0.875rem 0',
-              borderBottom: '1px solid var(--border)',
-              textDecoration: 'none',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            }}>
-              Browse clinics
-              {path === '/' && <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--gold)' }} />}
-            </Link>
-            {LINKS.map((l) => {
-              const active = path.startsWith(l.href)
-              return (
-                <Link key={l.href} href={l.href} onClick={() => setOpen(false)} style={{
-                  fontSize: 15, fontWeight: active ? 600 : 400,
-                  color: active ? 'var(--text-1)' : 'var(--text-2)',
-                  padding: '0.875rem 0',
-                  borderBottom: '1px solid var(--border)',
-                  textDecoration: 'none',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                }}>
-                  {l.label}
-                  {active && <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--gold)' }} />}
-                </Link>
-              )
-            })}
-          </div>
+        <div className="nav-mobile">
+          {LINKS.map((l) => {
+            const active = l.href === '/' ? path === '/' : path.startsWith(l.href)
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`nav-mobile-link${active ? ' nav-mobile-link--active' : ''}`}
+              >
+                <span>{l.label}</span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 16 16">
+                  <path d="M6 12l4-4-4-4"/>
+                </svg>
+              </Link>
+            )
+          })}
         </div>
       )}
 
       <style>{`
-        @media (min-width: 640px) { .sm-show { display: block !important; } }
         @media (min-width: 768px) {
           .desktop-nav { display: flex !important; }
           .hamburger { display: none !important; }
-          .for-clinics-link { display: flex !important; }
         }
         @media (max-width: 767px) {
           .desktop-nav { display: none !important; }
-          .for-clinics-link { display: none !important; }
         }
       `}</style>
     </header>

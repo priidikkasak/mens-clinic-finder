@@ -3,27 +3,36 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <div className="pg-w footer-inner">
+      <div className="pg-w">
 
-        <div className="footer-brand-col">
-          <span className="footer-brand-mark">MCF</span>
-          <span className="footer-brand-sep">·</span>
-          <span className="footer-brand-tagline">Men&apos;s Clinic Finder</span>
+        <div className="footer-top">
+          <div className="footer-brand-area">
+            <span className="footer-logo-mark">MCF</span>
+            <p className="footer-logo-tagline">Men&apos;s Clinic Finder</p>
+            <p className="footer-disclaimer">
+              Always consult a qualified medical professional
+              before proceeding with any treatment.
+            </p>
+          </div>
+
+          <div className="footer-cols">
+            <div className="footer-col">
+              <p className="footer-col-head">Directory</p>
+              <Link href="/clinics" className="footer-link">All clinics</Link>
+              <Link href="/clinics?region=EU" className="footer-link">Europe</Link>
+              <Link href="/clinics?region=World" className="footer-link">Worldwide</Link>
+            </div>
+            <div className="footer-col">
+              <p className="footer-col-head">Company</p>
+              <Link href="/about" className="footer-link">About</Link>
+              <Link href="/for-clinics" className="footer-link">For clinics</Link>
+            </div>
+          </div>
         </div>
 
-        <nav className="footer-nav-links">
-          {[
-            ['/clinics', 'All clinics'],
-            ['/about', 'About'],
-            ['/for-clinics', 'For clinics'],
-          ].map(([href, label]) => (
-            <Link key={href} href={href} className="footer-link">{label}</Link>
-          ))}
-        </nav>
-
-        <p className="footer-copy">
+        <div className="footer-bottom">
           © {new Date().getFullYear()} MensClinicFinder
-        </p>
+        </div>
 
       </div>
     </footer>
