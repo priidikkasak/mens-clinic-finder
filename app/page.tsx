@@ -161,98 +161,59 @@ export default async function HomePage() {
 
           </div>
 
-          {/* Right — male vitality card */}
+          {/* Right — animated man figure */}
           <div className="hero-deco" aria-hidden="true">
-            <div className="hdc-ecg-card">
-              <div className="hdc-ecg-header">
-                <div>
-                  <div className="hdc-ecg-title">Vitality Profile</div>
-                  <div className="hdc-ecg-subtitle">Men&apos;s Health Scan</div>
-                </div>
-                <div className="hdc-ecg-live">
-                  <span className="hdc-ecg-dot" />
-                  LIVE
-                </div>
-              </div>
-              {/* Body scan area */}
-              <div className="hdc-body-area">
-                <div className="hdc-body-glow" />
-                <svg className="hdc-body-fig" viewBox="0 0 60 120" fill="none">
-                  {/* Head */}
-                  <circle cx="30" cy="9" r="9" fill="rgba(201,160,87,0.9)"/>
-                  {/* Muscular body silhouette — fully curved, no straight lines */}
+            <div className="man-fig-wrap">
+              <div className="man-fig-bg" />
+
+              <div className="man-fig-inner">
+                <svg className="man-fig-svg" viewBox="0 0 60 120" fill="none">
+                  <defs>
+                    <clipPath id="mBodyClip">
+                      <circle cx="30" cy="9" r="9"/>
+                      <path d="M 33 18 C 43 18 55 22 57 29 C 58 36 56 46 53 57 C 51 63 49 67 47 70 L 44 72 C 45 67 47 61 48 54 C 49 46 47 39 43 36 C 44 42 44 50 43 58 C 42 62 41 66 42 70 C 43 76 44 84 43 92 C 43 98 43 103 42 108 L 46 118 L 37 118 C 37 111 36 104 37 96 C 37 86 36 78 35 70 C 34 67 32 66 30 66 C 28 66 26 67 25 70 C 24 78 23 86 23 96 C 24 104 23 111 23 118 L 14 118 L 17 108 C 17 103 17 98 17 92 C 16 84 16 76 18 70 C 18 66 18 62 17 58 C 16 50 16 42 17 36 C 13 39 11 46 12 54 C 13 61 15 67 15 72 L 16 70 C 13 67 10 63 9 57 C 6 46 2 36 3 29 C 5 22 17 18 27 18 Z"/>
+                    </clipPath>
+                    <linearGradient id="mScanGrad" x1="0" y1="0" x2="60" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0)"/>
+                      <stop offset="50%" stopColor="rgba(255,255,255,0.92)"/>
+                      <stop offset="100%" stopColor="rgba(255,255,255,0)"/>
+                    </linearGradient>
+                  </defs>
+
+                  {/* Body silhouette */}
+                  <circle cx="30" cy="9" r="9" fill="rgba(201,160,87,0.92)"/>
                   <path
-                    fill="rgba(201,160,87,0.9)"
-                    d="M 33 18
-                       C 43 18 55 22 57 29
-                       C 58 36 56 46 53 57
-                       C 51 63 49 67 47 70
-                       L 44 72
-                       C 45 67 47 61 48 54
-                       C 49 46 47 39 43 36
-                       C 44 42 44 50 43 58
-                       C 42 62 41 66 42 70
-                       C 43 76 44 84 43 92
-                       C 43 98 43 103 42 108
-                       L 46 118 L 37 118
-                       C 37 111 36 104 37 96
-                       C 37 86 36 78 35 70
-                       C 34 67 32 66 30 66
-                       C 28 66 26 67 25 70
-                       C 24 78 23 86 23 96
-                       C 24 104 23 111 23 118
-                       L 14 118
-                       L 17 108
-                       C 17 103 17 98 17 92
-                       C 16 84 16 76 18 70
-                       C 18 66 18 62 17 58
-                       C 16 50 16 42 17 36
-                       C 13 39 11 46 12 54
-                       C 13 61 15 67 15 72
-                       L 16 70
-                       C 13 67 10 63 9 57
-                       C 6 46 2 36 3 29
-                       C 5 22 17 18 27 18
-                       Z"
+                    fill="rgba(201,160,87,0.92)"
+                    d="M 33 18 C 43 18 55 22 57 29 C 58 36 56 46 53 57 C 51 63 49 67 47 70 L 44 72 C 45 67 47 61 48 54 C 49 46 47 39 43 36 C 44 42 44 50 43 58 C 42 62 41 66 42 70 C 43 76 44 84 43 92 C 43 98 43 103 42 108 L 46 118 L 37 118 C 37 111 36 104 37 96 C 37 86 36 78 35 70 C 34 67 32 66 30 66 C 28 66 26 67 25 70 C 24 78 23 86 23 96 C 24 104 23 111 23 118 L 14 118 L 17 108 C 17 103 17 98 17 92 C 16 84 16 76 18 70 C 18 66 18 62 17 58 C 16 50 16 42 17 36 C 13 39 11 46 12 54 C 13 61 15 67 15 72 L 16 70 C 13 67 10 63 9 57 C 6 46 2 36 3 29 C 5 22 17 18 27 18 Z"
                   />
-                  {/* Health pulse — chest area */}
-                  <circle cx="30" cy="45" r="3" fill="#16a34a" className="hdc-health-dot"/>
-                  <circle cx="30" cy="45" r="3" fill="none" stroke="#16a34a" strokeWidth="1" className="hdc-health-ring"/>
+
+                  {/* Scan line clipped to body shape */}
+                  <g clipPath="url(#mBodyClip)">
+                    <rect className="man-scan-rect" x="0" y="-5" width="60" height="5" fill="url(#mScanGrad)"/>
+                  </g>
+
+                  {/* Heart pulse */}
+                  <circle cx="30" cy="45" r="2.5" fill="#16a34a" className="man-pulse-dot"/>
+                  <circle cx="30" cy="45" r="2.5" fill="none" stroke="#16a34a" strokeWidth="0.7" className="man-pulse-r1"/>
+                  <circle cx="30" cy="45" r="2.5" fill="none" stroke="#16a34a" strokeWidth="0.5" className="man-pulse-r2"/>
                 </svg>
-                {/* Metric bars */}
-                <div className="hdc-body-bars">
-                  {([
-                    { l: 'Testosterone', p: 86 },
-                    { l: 'Vitality', p: 74 },
-                    { l: 'Fertility', p: 91 },
-                  ] as const).map(m => (
-                    <div key={m.l} className="hdc-body-bar">
-                      <span className="hdc-body-bar-l">{m.l}</span>
-                      <div className="hdc-body-bar-track">
-                        <div className="hdc-body-bar-fill" style={{width: `${m.p}%`}} />
-                      </div>
-                      <span className="hdc-body-bar-v">{m.p}%</span>
-                    </div>
-                  ))}
-                </div>
               </div>
-              <div className="hdc-ecg-metrics">
-                <div className="hdc-ecg-metric">
-                  <span className="hdc-ecg-n">4.9★</span>
-                  <span className="hdc-ecg-l">Avg Rating</span>
-                </div>
-                <div className="hdc-ecg-divider" />
-                <div className="hdc-ecg-metric">
-                  <span className="hdc-ecg-n">{total}</span>
-                  <span className="hdc-ecg-l">Clinics</span>
-                </div>
-                <div className="hdc-ecg-divider" />
-                <div className="hdc-ecg-metric">
-                  <span className="hdc-ecg-n">100%</span>
-                  <span className="hdc-ecg-l">Private</span>
-                </div>
+
+              {/* Floating stat chips */}
+              <div className="man-chip man-chip-1">
+                <span className="man-chip-dot man-chip-dot--green"/>
+                T-level optimal
+              </div>
+              <div className="man-chip man-chip-2">
+                <span className="man-chip-dot man-chip-dot--gold"/>
+                4.9★ avg rating
+              </div>
+              <div className="man-chip man-chip-3">
+                <span className="man-chip-dot man-chip-dot--green"/>
+                100% private
               </div>
             </div>
+
             <div className="hdc-float-chip">
               <span className="hdc-float-dot" />
               {countries} countries covered
