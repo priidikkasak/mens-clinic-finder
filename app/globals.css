@@ -273,20 +273,6 @@ body {
   transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
 }
 
-.clinic-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 3px;
-  background: transparent;
-  transition: background 0.18s;
-}
-
-.clinic-card--premium::before {
-  background: var(--gold);
-}
 
 a:hover .clinic-card,
 .card-link:hover .clinic-card {

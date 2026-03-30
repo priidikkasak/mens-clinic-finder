@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { createServerClient } from '@/lib/supabase-server'
 import { Clinic, Category } from '@/lib/types'
+import { MOCK_CLINICS } from '@/lib/mock-clinics'
 import { getCategoryLabel, getCategoryDescription, formatPriceRange, countryFlag } from '@/lib/utils'
 import VerifiedBadge from '@/components/VerifiedBadge'
 import ClinicCard from '@/components/ClinicCard'
@@ -11,27 +12,39 @@ export const revalidate = 86400
 
 interface PageProps { params: Promise<{ slug: string }> }
 
-async function getClinic(slug: string) {
+async function getClinic(slug: string): Promise<Clinic | null> {
   try {
     const { data } = await createServerClient().from('clinics').select('*').eq('slug', slug).single()
-    return data as Clinic | null
-  } catch { return null }
+    if (data) return data as Clinic
+    throw new Error('not found')
+  } catch {
+    return MOCK_CLINICS.find(c => c.slug === slug) ?? null
+  }
 }
 
-async function getSimilar(clinic: Clinic) {
+async function getSimilar(clinic: Clinic): Promise<Clinic[]> {
   try {
     const { data } = await createServerClient()
       .from('clinics').select('*').neq('slug', clinic.slug)
       .or(`country.eq.${clinic.country},categories.cs.{${clinic.categories[0]}}`).limit(4)
-    return (data ?? []) as Clinic[]
-  } catch { return [] }
+    if (data && data.length > 0) return data as Clinic[]
+    throw new Error('empty')
+  } catch {
+    return MOCK_CLINICS
+      .filter(c => c.slug !== clinic.slug && (
+        c.country === clinic.country || c.categories.some(cat => clinic.categories.includes(cat))
+      ))
+      .slice(0, 4)
+  }
 }
 
 export async function generateStaticParams() {
   try {
     const { data } = await createServerClient().from('clinics').select('slug')
     return (data ?? []).map((c: { slug: string }) => ({ slug: c.slug }))
-  } catch { return [] }
+  } catch {
+    return MOCK_CLINICS.map(c => ({ slug: c.slug }))
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -70,7 +83,7 @@ export default async function ClinicPage({ params }: PageProps) {
 
         {/* Breadcrumb */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '1.25rem 0', borderBottom: '1px solid var(--border)', fontSize: 11, fontFamily: 'var(--font-geist-mono)', color: 'var(--text-3)' }}>
-          <Link href="/clinics" style={{ textDecoration: 'none', color: 'var(--text-3)' }}>Clinics</Link>
+          <Link href="/" style={{ textDecoration: 'none', color: 'var(--text-3)' }}>All clinics</Link>
           <span>/</span>
           <span style={{ color: 'var(--text-2)' }}>{clinic.name}</span>
         </div>
@@ -231,7 +244,7 @@ export default async function ClinicPage({ params }: PageProps) {
                 This directory is for informational purposes only. We do not provide medical advice. Verify credentials directly with the clinic before any procedure.
               </p>
               <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
-                <Link href="/clinics" style={{ fontSize: 12, fontWeight: 600, color: 'var(--navy)', textDecoration: 'none' }}>
+                <Link href="/" style={{ fontSize: 12, fontWeight: 600, color: 'var(--navy)', textDecoration: 'none' }}>
                   ← Back to all clinics
                 </Link>
               </div>
@@ -244,7 +257,7 @@ export default async function ClinicPage({ params }: PageProps) {
           <section style={{ borderTop: '1px solid var(--border)', paddingTop: '2.5rem', paddingBottom: '3rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
               <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>Similar clinics</h2>
-              <Link href="/clinics" style={{ fontSize: 12, color: 'var(--text-3)', textDecoration: 'none' }}>View all →</Link>
+              <Link href="/" style={{ fontSize: 12, color: 'var(--text-3)', textDecoration: 'none' }}>View all →</Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style={{ gap: '1rem' }}>
               {similar.map((c) => <ClinicCard key={c.id} clinic={c} />)}
