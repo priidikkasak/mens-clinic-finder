@@ -44,7 +44,9 @@ export default function HomeDirectory({ clinics }: { clinics: Clinic[] }) {
   }
 
   function scrollToResults() {
-    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (!resultsRef.current) return
+    const top = resultsRef.current.getBoundingClientRect().top + window.scrollY - 68
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
   }
 
   return (
