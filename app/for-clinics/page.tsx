@@ -59,7 +59,7 @@ export default function ForClinicsPage() {
       </section>
 
       {/* How to get listed */}
-      <section className="about-section about-section--alt">
+      <section className="about-section">
         <div className="pg-w">
           <p className="page-eyebrow">How to get listed</p>
           <div className="fc-steps-grid">
