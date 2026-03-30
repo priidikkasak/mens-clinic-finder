@@ -81,22 +81,6 @@ export default function Nav() {
             For clinics
           </Link>
 
-          <Link href="/clinics" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            fontSize: 13, fontWeight: 700,
-            padding: '0.5rem 1.125rem', borderRadius: 8,
-            background: 'var(--navy)', color: 'white',
-            textDecoration: 'none',
-            boxShadow: '0 1px 6px rgba(12,28,46,0.18)',
-            transition: 'transform 0.15s, box-shadow 0.15s',
-          }}
-            onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.transform = 'translateY(-1px)'; el.style.boxShadow = '0 3px 12px rgba(12,28,46,0.25)' }}
-            onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.transform = ''; el.style.boxShadow = '0 1px 6px rgba(12,28,46,0.18)' }}
-            className="cta-btn"
-          >
-            Find a clinic
-          </Link>
-
           {/* Hamburger */}
           <button
             onClick={() => setOpen(!open)}
@@ -144,18 +128,6 @@ export default function Nav() {
               )
             })}
           </div>
-          <Link href="/clinics" onClick={() => setOpen(false)} style={{
-            marginTop: '1rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-            padding: '0.75rem', borderRadius: 8,
-            background: 'var(--navy)', color: 'white',
-            fontSize: 14, fontWeight: 700, textDecoration: 'none',
-          }}>
-            Find a clinic
-            <svg width="13" height="13" fill="none" viewBox="0 0 13 13" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2.5 6.5h8M6.5 3l3.5 3.5L6.5 10"/>
-            </svg>
-          </Link>
         </div>
       )}
 
@@ -163,8 +135,6 @@ export default function Nav() {
         @media (min-width: 640px) { .sm-show { display: block !important; } }
         @media (min-width: 768px) { .desktop-nav { display: flex !important; } .hamburger { display: none !important; } .for-clinics-link { display: block !important; } }
         @media (max-width: 767px) { .desktop-nav { display: none !important; } .for-clinics-link { display: none !important; } }
-        @media (min-width: 640px) { .cta-btn { display: inline-flex !important; } }
-        @media (max-width: 639px) { .cta-btn { display: none !important; } }
       `}</style>
     </header>
   )
