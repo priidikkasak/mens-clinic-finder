@@ -980,7 +980,7 @@ input[type="range"]::-webkit-slider-thumb {
   white-space: nowrap;
 }
 .spec-card:hover .spec-tag { border-color: var(--border2); }
-@media (min-width: 1200px) { .spec-desc { flex: 1; } }
+@media (min-width: 1200px) { .spec-desc { min-height: 6.4em; } }
 
 /* ── Footer — 4 col ─────────────────────────────────────────*/
 .site-footer { background: var(--text); }
