@@ -15,18 +15,22 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="footer-cols">
-            <div className="footer-col">
-              <p className="footer-col-head">Directory</p>
-              <Link href="/clinics" className="footer-link">All clinics</Link>
-              <Link href="/clinics?region=EU" className="footer-link">Europe</Link>
-              <Link href="/clinics?region=World" className="footer-link">Worldwide</Link>
-            </div>
-            <div className="footer-col">
-              <p className="footer-col-head">Company</p>
-              <Link href="/about" className="footer-link">About</Link>
-              <Link href="/for-clinics" className="footer-link">For clinics</Link>
-            </div>
+          <div className="footer-col">
+            <p className="footer-col-head">Directory</p>
+            <Link href="/" className="footer-link">Browse clinics</Link>
+            <Link href="/?region=EU" className="footer-link">Europe</Link>
+            <Link href="/?region=World" className="footer-link">Worldwide</Link>
+          </div>
+
+          <div className="footer-col">
+            <p className="footer-col-head">Company</p>
+            <Link href="/about" className="footer-link">About</Link>
+            <Link href="/for-clinics" className="footer-link">For clinics</Link>
+          </div>
+
+          <div className="footer-col">
+            <p className="footer-col-head">Contact</p>
+            <a href="mailto:clinics@mensclincfinder.com" className="footer-link">clinics@mensclincfinder.com</a>
           </div>
         </div>
 

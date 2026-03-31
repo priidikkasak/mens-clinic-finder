@@ -17,7 +17,7 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
             {extraCats > 0 && <span style={{ opacity: 0.6 }}> +{extraCats}</span>}
           </span>
           {clinic.premium
-            ? <span className="card-premium-badge">Premium ↗</span>
+            ? <span className="card-premium-badge">◆ Premium</span>
             : <span className="card-view-arrow">→</span>
           }
         </div>
@@ -35,7 +35,6 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
           <p className="card-description">{clinic.description}</p>
         )}
 
-        {/* Spacer */}
         <div style={{ flex: 1, minHeight: '1rem' }} />
 
         {/* Footer */}
@@ -46,7 +45,7 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
                 <div className="card-stars">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <svg key={s} width="10" height="10" viewBox="0 0 10 10"
-                      fill={s <= Math.round(clinic.rating!) ? '#C9A057' : 'var(--border)'}>
+                      fill={s <= Math.round(clinic.rating!) ? 'var(--gold)' : 'var(--border)'}>
                       <path d="M5 0.5l1.05 2.13 2.45.47-1.75 1.71.41 2.41L5 6.17 2.84 7.22l.41-2.41L1.5 3.1l2.45-.47L5 .5z"/>
                     </svg>
                   ))}
@@ -60,9 +59,7 @@ export default function ClinicCard({ clinic }: { clinic: Clinic }) {
 
             {clinic.verified && (
               <span className="card-verified">
-                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M1.5 4l1.75 1.75L6.5 2"/>
-                </svg>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--green)', flexShrink: 0, display: 'inline-block' }} />
                 Verified
               </span>
             )}
