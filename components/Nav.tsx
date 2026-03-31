@@ -39,7 +39,7 @@ export default function Nav() {
           })}
           <Link
             href="/for-clinics"
-            className={`nav-cta${path.startsWith('/for-clinics') ? ' nav-link--active' : ''}`}
+            className="nav-cta"
           >
             For clinics
           </Link>

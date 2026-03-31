@@ -966,7 +966,7 @@ input[type="range"]::-webkit-slider-thumb {
   line-height: 1.2;
 }
 .spec-desc { font-size: 12px; font-weight: 300; color: var(--text2); line-height: 1.6; flex: 1; }
-.spec-tags { display: flex; flex-wrap: nowrap; overflow: hidden; gap: 4px; margin-top: 4px; }
+.spec-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 .spec-tag {
   font-size: 10px;
   font-family: var(--font-dm-mono), 'DM Mono', monospace;
