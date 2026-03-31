@@ -134,7 +134,7 @@ export default async function HomePage() {
               {[
                 { n: String(total), l: 'Clinics' },
                 { n: String(countries), l: 'Countries' },
-                { n: '5', l: 'Specialisms' },
+                { n: '5', l: 'Specialties' },
               ].map((s) => (
                 <div key={s.l} className="hero-stat">
                   <span className="hero-stat-num">{s.n}</span>
