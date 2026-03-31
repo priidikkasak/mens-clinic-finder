@@ -106,12 +106,23 @@ export default async function HomePage() {
       <section className="hero-v2">
         <div className="pg-w hero-inner">
 
-          {/* Left — title */}
           <div>
             <h1 className="hero-title fade-up fade-up--1">
               <span className="hero-title-row">Find the right clinic.</span>
               <span className="hero-title-row"><span className="hero-title-accent">Discreetly.</span></span>
             </h1>
+            <div className="hero-stats-bar fade-up fade-up--2">
+              {[
+                { n: String(total), l: 'Clinics' },
+                { n: String(countries), l: 'Countries' },
+                { n: '5', l: 'Specialties' },
+              ].map((s) => (
+                <div key={s.l} className="hero-stat">
+                  <span className="hero-stat-num">{s.n}</span>
+                  <span className="hero-stat-label">{s.l}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
 
