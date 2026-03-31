@@ -305,15 +305,13 @@ body {
 .hero-title {
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-weight: 300;
-  font-size: clamp(3rem, 6.5vw, 5.75rem);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
   line-height: 0.97;
   letter-spacing: -0.02em;
   color: var(--text);
 }
-.hero-title-row {
-  display: block;
-  white-space: nowrap;
-}
+.hero-title-row { display: block; }
+@media (min-width: 900px) { .hero-title-row { white-space: nowrap; } }
 .hero-title-accent {
   color: var(--gold);
   font-style: italic;
@@ -1230,7 +1228,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* ── Mobile / Responsive ────────────────────────────────────*/
 @media (max-width: 639px) {
 .hero-inner { padding-top: 56px; padding-bottom: 56px; }
-  .hero-title  { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+  .hero-title  { font-size: clamp(2rem, 9vw, 2.75rem); }
   .hero-stats-bar { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
   .btn-main, .btn-outline { width: 100%; }
