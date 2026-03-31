@@ -157,7 +157,7 @@ export default async function HomePage() {
           </div>
           <div className="spec-grid">
             {SPECS.map((s) => (
-              <div key={s.cat} className="spec-card">
+              <div key={s.cat} className="spec-card" data-cat={s.cat}>
                 <div className="spec-icon">{s.icon}</div>
                 <h3 className="spec-name">{s.label}</h3>
                 <p className="spec-desc">{s.desc}</p>
