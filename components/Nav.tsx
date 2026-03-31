@@ -71,10 +71,7 @@ export default function Nav() {
                 onClick={() => setOpen(false)}
                 className={`nav-mobile-link${active ? ' nav-mobile-link--active' : ''}`}
               >
-                <span>{l.label}</span>
-                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 16 16">
-                  <path d="M6 12l4-4-4-4"/>
-                </svg>
+                {l.label}
               </Link>
             )
           })}
