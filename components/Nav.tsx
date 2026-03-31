@@ -62,8 +62,8 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <div className="nav-mobile">
-          {[{ href: '/about', label: 'About' }, { href: '/for-clinics', label: 'For clinics' }].map((l) => {
-            const active = path.startsWith(l.href)
+          {[{ href: '/', label: 'Home' }, { href: '/about', label: 'About' }, { href: '/for-clinics', label: 'For clinics' }].map((l) => {
+            const active = l.href === '/' ? path === '/' : path.startsWith(l.href)
             return (
               <Link
                 key={l.href}

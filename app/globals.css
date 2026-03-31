@@ -210,10 +210,11 @@ body {
 .nav-hamburger:hover { opacity: 0.6; }
 
 .nav-mobile {
-  background: rgba(247, 245, 242, 0.99);
+  background: rgba(232, 228, 222, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 0.5rem 24px 2rem;
+  border-top: 1px solid var(--border2);
 }
 .nav-mobile-link {
   display: flex;
