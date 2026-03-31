@@ -109,7 +109,8 @@ export default async function HomePage() {
           {/* Left — title */}
           <div>
             <h1 className="hero-title fade-up fade-up--1">
-              Find the right<br />clinic. <span className="hero-title-accent">Discreetly.</span>
+              <span className="hero-title-row">Find the right</span>
+              <span className="hero-title-row">clinic. <span className="hero-title-accent">Discreetly.</span></span>
             </h1>
           </div>
 

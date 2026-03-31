@@ -309,6 +309,9 @@ body {
   line-height: 0.97;
   letter-spacing: -0.02em;
   color: var(--text);
+}
+.hero-title-row {
+  display: block;
   white-space: nowrap;
 }
 .hero-title-accent {
