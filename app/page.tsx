@@ -109,7 +109,7 @@ export default async function HomePage() {
           {/* Left — title */}
           <div>
             <h1 className="hero-title fade-up fade-up--1">
-              Find the right<br />clinic. <span className="hero-title-accent">Discreetly.</span>
+              Find the right<br /><span style={{whiteSpace:'nowrap'}}>clinic. <span className="hero-title-accent">Discreetly.</span></span>
             </h1>
           </div>
 
@@ -160,9 +160,6 @@ export default async function HomePage() {
                 <div className="spec-icon">{s.icon}</div>
                 <h3 className="spec-name">{s.label}</h3>
                 <p className="spec-desc">{s.desc}</p>
-                <div className="spec-tags">
-                  {s.tags.map(t => <span key={t} className="spec-tag">{t}</span>)}
-                </div>
               </div>
             ))}
           </div>
