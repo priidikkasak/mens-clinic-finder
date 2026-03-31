@@ -213,17 +213,17 @@ body {
   background: rgba(232, 228, 222, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 0.5rem 24px 2rem;
+  padding: 0.25rem 24px 1.25rem;
   border-top: 1px solid var(--border2);
 }
 .nav-mobile-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.1rem 0;
+  padding: 0.75rem 0;
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--text2);
   text-decoration: none;
