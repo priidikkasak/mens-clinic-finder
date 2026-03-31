@@ -446,18 +446,12 @@ body {
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 .clinic-card--premium {
-  border-top: 2px solid var(--gold);
 }
 a:hover .clinic-card,
 .card-link:hover .clinic-card {
   border-color: var(--border2);
   box-shadow: 0 4px 24px rgba(26, 24, 22, 0.06);
   transform: translateY(-2px);
-}
-a:hover .clinic-card--premium,
-.card-link:hover .clinic-card--premium {
-  border-top-color: var(--gold);
-  border-top-width: 2px;
 }
 
 .card-view-arrow {
