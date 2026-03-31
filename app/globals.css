@@ -310,8 +310,7 @@ body {
   letter-spacing: -0.02em;
   color: var(--text);
 }
-.hero-title-row { display: block; }
-@media (min-width: 900px) { .hero-title-row { white-space: nowrap; } }
+.hero-title-row { display: block; white-space: nowrap; }
 .hero-title-accent {
   color: var(--gold);
   font-style: italic;
