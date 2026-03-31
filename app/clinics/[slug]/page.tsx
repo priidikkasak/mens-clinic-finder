@@ -6,7 +6,6 @@ import { Clinic, Category } from '@/lib/types'
 import { MOCK_CLINICS } from '@/lib/mock-clinics'
 import { getCategoryLabel, getCategoryDescription, formatPriceRange, countryFlag } from '@/lib/utils'
 import VerifiedBadge from '@/components/VerifiedBadge'
-import ClinicCard from '@/components/ClinicCard'
 import ScrollToTop from '@/components/ScrollToTop'
 
 export const revalidate = 86400
@@ -20,22 +19,6 @@ async function getClinic(slug: string): Promise<Clinic | null> {
     throw new Error('not found')
   } catch {
     return MOCK_CLINICS.find(c => c.slug === slug) ?? null
-  }
-}
-
-async function getSimilar(clinic: Clinic): Promise<Clinic[]> {
-  try {
-    const { data } = await createServerClient()
-      .from('clinics').select('*').neq('slug', clinic.slug)
-      .or(`country.eq.${clinic.country},categories.cs.{${clinic.categories[0]}}`).limit(4)
-    if (data && data.length > 0) return data as Clinic[]
-    throw new Error('empty')
-  } catch {
-    return MOCK_CLINICS
-      .filter(c => c.slug !== clinic.slug && (
-        c.country === clinic.country || c.categories.some(cat => clinic.categories.includes(cat))
-      ))
-      .slice(0, 4)
   }
 }
 
@@ -64,8 +47,6 @@ export default async function ClinicPage({ params }: PageProps) {
   const { slug } = await params
   const clinic = await getClinic(slug)
   if (!clinic) notFound()
-
-  const similar = await getSimilar(clinic)
 
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'MedicalClinic',
@@ -179,14 +160,12 @@ export default async function ClinicPage({ params }: PageProps) {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 md:grid-cols-4" style={{ borderBottom: '1px solid var(--border)' }}>
+        <div className="grid grid-cols-2" style={{ borderBottom: '1px solid var(--border)' }}>
           {[
             { label: 'Languages', value: clinic.languages?.join(', ') ?? '—' },
             { label: 'Founded', value: clinic.founded_year ? String(clinic.founded_year) : '—' },
-            { label: 'Region', value: clinic.region === 'EU' ? 'Europe' : 'Worldwide' },
-            { label: 'Currency', value: clinic.currency },
           ].map((s, i) => (
-            <div key={s.label} style={{ padding: '1.25rem 0', paddingRight: '1.5rem', borderRight: i < 3 ? '1px solid var(--border)' : 'none', paddingLeft: i > 0 ? '1.5rem' : 0 }}>
+            <div key={s.label} style={{ padding: '1.25rem 0', paddingRight: '1.5rem', borderRight: i < 1 ? '1px solid var(--border)' : 'none', paddingLeft: i > 0 ? '1.5rem' : 0 }}>
               <p style={{ fontSize: 9, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-3)', marginBottom: 4 }}>{s.label}</p>
               <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-1)' }}>{s.value}</p>
             </div>
@@ -254,18 +233,6 @@ export default async function ClinicPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Similar */}
-        {similar.length > 0 && (
-          <section style={{ borderTop: '1px solid var(--border)', paddingTop: '2.5rem', paddingBottom: '3rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-              <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 18, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>Similar clinics</h2>
-              <Link href="/" style={{ fontSize: 12, color: 'var(--text-3)', textDecoration: 'none' }}>View all →</Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style={{ gap: '1rem' }}>
-              {similar.map((c) => <ClinicCard key={c.id} clinic={c} />)}
-            </div>
-          </section>
-        )}
       </div>
     </>
   )

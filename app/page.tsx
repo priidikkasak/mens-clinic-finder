@@ -108,18 +108,14 @@ export default async function HomePage() {
 
           {/* Left — title */}
           <div>
-            <div className="hero-badge fade-up fade-up--1">
-              <span className="hero-badge-dot" />
-              Live directory · {total} clinics · {countries} countries
-            </div>
-            <h1 className="hero-title fade-up fade-up--2">
+            <h1 className="hero-title fade-up fade-up--1">
               Find the right<br />clinic.<br />
               <span className="hero-title-accent">Discreetly.</span>
             </h1>
           </div>
 
           {/* Right — body + CTAs + stats */}
-          <div className="hero-content-right fade-up fade-up--3">
+          <div className="hero-content-right fade-up fade-up--2">
             <p className="hero-body">
               TRT, male fertility, ED treatment and discreet enhancement —
               from verified specialists across Europe and worldwide.
