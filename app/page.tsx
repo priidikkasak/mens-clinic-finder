@@ -114,36 +114,6 @@ export default async function HomePage() {
             </h1>
           </div>
 
-          {/* Right — body + CTAs + stats */}
-          <div className="hero-content-right fade-up fade-up--2">
-            <p className="hero-body">
-              TRT, male fertility, ED treatment and discreet enhancement —
-              from verified specialists across Europe and worldwide.
-              Real prices, no hidden fees.
-            </p>
-
-            <div className="hero-actions">
-              <a href="#directory" className="btn-main">
-                Browse {total} clinics
-              </a>
-              <Link href="/for-clinics" className="btn-outline">
-                For clinics
-              </Link>
-            </div>
-
-            <div className="hero-stats-bar">
-              {[
-                { n: String(total), l: 'Clinics' },
-                { n: String(countries), l: 'Countries' },
-                { n: '5', l: 'Specialties' },
-              ].map((s) => (
-                <div key={s.l} className="hero-stat">
-                  <span className="hero-stat-num">{s.n}</span>
-                  <span className="hero-stat-label">{s.l}</span>
-                </div>
-              ))}
-            </div>
-          </div>
 
         </div>
       </section>
