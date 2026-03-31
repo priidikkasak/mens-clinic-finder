@@ -1211,6 +1211,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ── Mobile / Responsive ────────────────────────────────────*/
 @media (max-width: 639px) {
+  .spec-card[data-cat="pe"] .spec-tags,
+  .spec-card[data-cat="penis_filler"] .spec-tags { padding-top: 4px; }
   .hero-inner { padding-top: 56px; padding-bottom: 56px; }
   .hero-title  { font-size: clamp(2.5rem, 10vw, 3.5rem); }
   .hero-stats-bar { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
