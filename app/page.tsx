@@ -116,17 +116,11 @@ export default async function HomePage() {
 
           {/* Right — body + CTAs + stats */}
           <div className="hero-content-right fade-up fade-up--2">
-            <div className="hero-specs">
-              {[
-                'Testosterone Therapy',
-                'Male Fertility',
-                'Erectile Dysfunction',
-                'Premature Ejaculation',
-                'Penile Enhancement',
-              ].map(s => (
-                <span key={s} className="hero-spec-pill">{s}</span>
-              ))}
-            </div>
+            <p className="hero-body">
+              TRT, male fertility, ED treatment and discreet enhancement —
+              from verified specialists across Europe and worldwide.
+              Real prices, no hidden fees.
+            </p>
 
             <div className="hero-actions">
               <a href="#directory" className="btn-main">
